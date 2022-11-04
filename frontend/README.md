@@ -4,8 +4,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Dependencies(Other than react)
 1. Install [NodeJs](https://nodejs.org/en/)
-2. In the project folder:
-  a. [React Router](https://reactrouter.com/en/main)
+2. In the project folder, install:
+# a. [React Router](https://reactrouter.com/en/main)
   ### `npm i react-router-dom@latest`
   b. [SurveyJS](https://surveyjs.io/)
   ### `npm i survey-react@latest`
