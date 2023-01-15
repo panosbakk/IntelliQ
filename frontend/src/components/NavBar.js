@@ -33,6 +33,11 @@ class NavBar extends Component {
                   Survey
                 </Link>
               </li>
+              <li class="nav-item">
+                <Link class="nav-link active" to="/survey-list">
+                  Survey List
+                </Link>
+              </li>
               <li class="nav-item dropdown">
                 <a
                   class="nav-link dropdown-toggle"
@@ -65,14 +70,6 @@ class NavBar extends Component {
                       href="https://github.com/ntua-el18845"
                     >
                       3rd dev link
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      class="dropdown-item"
-                      href="https://github.com/ntua-el18845"
-                    >
-                      4th dev link
                     </a>
                   </li>
                 </ul>
