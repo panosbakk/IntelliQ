@@ -22,16 +22,15 @@ const QuestionnaireSchema = new mongoose.Schema({
         {
             qID: {
                 type: String,
-                required: true
             },
 
             qtext: {
                 type: String,
-                required: true
+
             },
 
             required: {
-                type: String
+                type: String,
             },
 
             type: {
