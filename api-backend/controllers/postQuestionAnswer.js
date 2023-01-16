@@ -15,8 +15,7 @@ exports.postQuestionAnswer = async (req, res) => {
       "answers.qID": questionID,
       "answers.ans": optionID,
     });
-    if (answer === null) return notFound(res);
-    success(res, answer, "Answer given");
+    answer.save().then(console.log("Succesfully answered!"));
   } catch (error) {
     badRequest(res, error);
   }
