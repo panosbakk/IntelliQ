@@ -1,7 +1,7 @@
 # Software Engineering Project 2022-2023
 
 Group: softeng2022-28
-Members: el18046, el18845, el18901, el19600
+Members: el18046, el18845, el19600
   
   
   
