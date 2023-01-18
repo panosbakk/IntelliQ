@@ -62,6 +62,7 @@ export function SurveyListPage() {
       },
     ],
   };
+
   return (
     <>
       <h1>Survey list page</h1>
