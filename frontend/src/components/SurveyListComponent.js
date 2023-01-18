@@ -41,7 +41,7 @@ class SurveyListComponent extends Component {
           <Link
             to={{
               pathname: "/survey/QQ" + key,
-              state: this.state.questionnaire.Questionnaire,
+              state: key,
             }}
           >
             Questionnaire{" "}
