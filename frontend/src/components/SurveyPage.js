@@ -13,7 +13,6 @@ export function SurveyPage() {
       .catch((error) => console.error(error));
   }, [id]);
 
-  console.log(data);
   return data ? (
     <>
       <h1>Survey page {id}</h1>

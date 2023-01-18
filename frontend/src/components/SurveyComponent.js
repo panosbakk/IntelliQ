@@ -11,8 +11,49 @@ class SurveyComponent extends Component {
   onCompleteComponent() {
     this.setState({ isCompleted: true });
   }
+
+  jsonModifier(json) {
+    let surveyJson = {
+      name: json.questionnaireID,
+      title: json.questionnaireTitle,
+      pages: [
+        {
+          name: "page1",
+          elements: [],
+        },
+      ],
+    };
+    json.questions.forEach((question) => {
+      if (question.type === "question") {
+        let choices = [];
+        question.options.forEach((option) => {
+          choices.push({
+            value: option.optID,
+            text: option.opttxt,
+          });
+        });
+
+        surveyJson.pages[0].elements.push({
+          type: "radiogroup",
+          name: question.qID,
+          title: question.qtext,
+          isRequired: question.required,
+          choices: choices,
+        });
+      } else if (question.type === "profile") {
+        surveyJson.pages[0].elements.push({
+          type: "text",
+          name: question.qID,
+          title: question.qtext,
+          isRequired: question.required,
+        });
+      }
+    });
+    return surveyJson;
+  }
+
   render() {
-    const json = this.props.json;
+    const json = this.jsonModifier(this.props.json);
     let surveyRender = !this.state.isCompleted ? (
       <Survey.Survey
         json={json}
