@@ -17,6 +17,7 @@ exports.postQuestionAnswer = async (req, res) => {
     answer.save((err, doc) => {
       if (!err) {
         req.flash("Answer inserted successfully!");
+        res.send(undefined);
         res.redirect("/");
       } else console.log("Error during record insertion : " + err);
     });
