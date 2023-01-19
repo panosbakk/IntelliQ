@@ -5,19 +5,18 @@ const notFound = require("../utils/notFoundResponse");
 
 exports.postQuestionAnswer = async (req, res) => {
   try {
-    const questionnaireID = req.params.questionnaireID;
-    const questionID = req.params.questionID;
-    const session = req.params.session;
-    const optionID = req.params.optionID;
+    const questionnaireID = req.body.questionnaireID;
+    const questionID = req.body.questionID;
+    const session = req.body.session;
+    const optionID = req.body.optionID;
     const answer = new Answers({
       questionnaireID: questionnaireID,
       session: session,
-      "answers.qID": questionID,
-      "answers.ans": optionID,
+      answers: { qID: questionID, ans: optionID },
     });
     answer.save((err, doc) => {
       if (!err) {
-        req.flash("success", "Answer added successfully!");
+        req.flash("Answer inserted successfully!");
         res.redirect("/");
       } else console.log("Error during record insertion : " + err);
     });
