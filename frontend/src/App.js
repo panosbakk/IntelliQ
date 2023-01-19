@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "./App.css";
 import NavBar from "./components/NavBar";
 import { Homepage } from "./Homepage";
-import { SurveyPage } from "./components/SurveyForm";
+import { SurveyPage } from "./components/SurveyPage";
+import { SurveyListPage } from "./components/SurveyListPage";
 import { Route, Routes } from "react-router-dom";
 
 class App extends Component {
@@ -15,6 +16,8 @@ class App extends Component {
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/survey" element={<SurveyPage />} />
+            <Route path="/survey/:id" element={<SurveyPage />} />
+            <Route path="/survey-list" element={<SurveyListPage />} />
           </Routes>
         </main>
       </>
