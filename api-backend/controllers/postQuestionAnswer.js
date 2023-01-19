@@ -1,4 +1,4 @@
-const Questionnaire = require("../models/Answers");
+const Answers = require("../models/Answers");
 const success = require("../utils/successResponse");
 const badRequest = require("../utils/badRequestResponse");
 const notFound = require("../utils/notFoundResponse");
@@ -15,7 +15,12 @@ exports.postQuestionAnswer = async (req, res) => {
       "answers.qID": questionID,
       "answers.ans": optionID,
     });
-    answer.save().then(console.log("Succesfully answered!"));
+    answer.save((err, doc) => {
+      if (!err) {
+        req.flash("success", "Answer added successfully!");
+        res.redirect("/");
+      } else console.log("Error during record insertion : " + err);
+    });
   } catch (error) {
     badRequest(res, error);
   }
