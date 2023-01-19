@@ -15,7 +15,6 @@ class App extends Component {
         <main className="container">
           <Routes>
             <Route path="/" element={<Homepage />} />
-            <Route path="/survey" element={<SurveyPage />} />
             <Route path="/survey/:id" element={<SurveyPage />} />
             <Route path="/survey-list" element={<SurveyListPage />} />
           </Routes>
