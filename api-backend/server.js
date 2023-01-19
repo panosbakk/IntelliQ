@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 require("custom-env").env("localhost");
 const getQuestionnaireRoute = require("./routes/getQuestionnaire");
 const getQuestionRoute = require("./routes/getQuestion");
@@ -13,7 +14,7 @@ const username = process.env.MONGO_USERNAME;
 const pwd = process.env.MONGO_PASS;
 const app = express();
 app.use(express.json());
-//app.use(cors());
+app.use(cors());
 mongoose.set("strictQuery", false);
 mongoose.connect(
   `mongodb+srv://${username}:${pwd}@intelliq.25mg5s4.mongodb.net/?retryWrites=true&w=majority`

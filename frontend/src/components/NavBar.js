@@ -11,11 +11,11 @@ class NavBar extends Component {
         aria-label="Eighth navbar example"
       >
         <div className="container">
-          <Link class="navbar-brand" to="/">
+          <Link className="navbar-brand" to="/">
             IntelliQ
           </Link>
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarsExample07"
@@ -23,34 +23,34 @@ class NavBar extends Component {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div class="collapse navbar-collapse" id="navbarsExample07">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <Link class="nav-link active" to="/survey">
+          <div className="collapse navbar-collapse" id="navbarsExample07">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <Link className="nav-link active" to="/survey">
                   Survey
                 </Link>
               </li>
-              <li class="nav-item">
-                <Link class="nav-link active" to="/survey-list">
+              <li className="nav-item">
+                <Link className="nav-link active" to="/survey-list">
                   Survey List
                 </Link>
               </li>
-              <li class="nav-item dropdown">
+              <li className="nav-item dropdown">
                 <a
-                  class="nav-link dropdown-toggle"
+                  className="nav-link dropdown-toggle"
                   href="/"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
                   Developers
                 </a>
-                <ul class="dropdown-menu" id="dropdown-menu">
+                <ul className="dropdown-menu" id="dropdown-menu">
                   <li>
                     <a
-                      class="dropdown-item"
+                      className="dropdown-item"
                       href="https://github.com/ntua-el18845"
                     >
                       1st dev link
@@ -58,7 +58,7 @@ class NavBar extends Component {
                   </li>
                   <li>
                     <a
-                      class="dropdown-item"
+                      className="dropdown-item"
                       href="https://github.com/ntua-el18845"
                     >
                       2nd dev link
@@ -66,7 +66,7 @@ class NavBar extends Component {
                   </li>
                   <li>
                     <a
-                      class="dropdown-item"
+                      className="dropdown-item"
                       href="https://github.com/ntua-el18845"
                     >
                       3rd dev link
@@ -77,7 +77,7 @@ class NavBar extends Component {
             </ul>
             <form role="search">
               <input
-                class="form-control"
+                className="form-control"
                 type="search"
                 placeholder=" Useless Searchbar for now"
                 aria-label="Search"
