@@ -6,10 +6,10 @@ class SurveyListComponent extends Component {
     super();
     this.state = { questionnaire: {} };
   }
-
   componentDidMount() {
+    const key = this.props.num;
     const myRequest = new Request(
-      "http://localhost:9103/intelliq_api/questionnaire/QQ000"
+      `http://localhost:9103/intelliq_api/questionnaire/QQ00${key}`
     );
 
     fetch(myRequest)
@@ -41,6 +41,12 @@ class SurveyListComponent extends Component {
               this.state.questionnaire.Questionnaire.questionnaireID}
           </Link>
         </h2>
+        <h3>
+          Questionnaire Title: "
+          {this.state.questionnaire.Questionnaire &&
+            this.state.questionnaire.Questionnaire.questionnaireTitle}
+          "
+        </h3>
       </>
     ) : (
       <h2>Loading...</h2>
