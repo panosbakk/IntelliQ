@@ -51,9 +51,9 @@ class NavBar extends Component {
                   <li>
                     <a
                       className="dropdown-item"
-                      href="https://github.com/ntua-el18845"
+                      href="https://github.com/ntua-el18046"
                     >
-                      1st dev link
+                      Vicky Batsari
                     </a>
                   </li>
                   <li>
@@ -61,15 +61,15 @@ class NavBar extends Component {
                       className="dropdown-item"
                       href="https://github.com/ntua-el18845"
                     >
-                      2nd dev link
+                      Lefteris Tournaris
                     </a>
                   </li>
                   <li>
                     <a
                       className="dropdown-item"
-                      href="https://github.com/ntua-el18845"
+                      href="https://github.com/ntua-el19600"
                     >
-                      3rd dev link
+                      Panagiotis Bakaloudis
                     </a>
                   </li>
                 </ul>
