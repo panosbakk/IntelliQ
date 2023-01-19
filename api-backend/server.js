@@ -4,6 +4,9 @@ const bodyParser = require("body-parser");
 require("custom-env").env("localhost");
 const getQuestionnaireRoute = require("./routes/getQuestionnaire");
 const getQuestionRoute = require("./routes/getQuestion");
+const getSessionAnswers = require("./routes/getSessionAnswers");
+const getQuestionAnswers = require("./routes/getQuestionAnswers");
+const postQuestionAnswer = require("./routes/postQuestionAnswer");
 
 const port = process.env.PORT || 9103;
 const username = process.env.MONGO_USERNAME;
@@ -23,6 +26,12 @@ app.get("/intelliq_api", (req, res) => {
 app.use("/intelliq_api/questionnaire", getQuestionnaireRoute);
 
 app.use("/intelliq_api/question", getQuestionRoute);
+
+app.use("/intelliq_api/getsessionanswers", getSessionAnswers);
+
+app.use("/intelliq_api/getquestionanswers", getQuestionAnswers);
+
+app.use("/intelliq_api/doanswer", postQuestionAnswer);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
