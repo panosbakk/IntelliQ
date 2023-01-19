@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 
 export function SurveyPage() {
+  // commit check
   const { id } = useParams();
   const [data, setData] = useState(null);
 
