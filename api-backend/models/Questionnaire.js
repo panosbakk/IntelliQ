@@ -31,8 +31,7 @@ const QuestionnaireSchema = new mongoose.Schema({
             },
 
             required: {
-                type: String,
-                default: false
+                type: String
             },
 
             type: {
