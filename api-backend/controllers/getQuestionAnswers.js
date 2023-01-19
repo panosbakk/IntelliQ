@@ -1,35 +1,24 @@
-const Questionnaire = require("../models/Questionnaire");
 const Answers = require("../models/Answers");
 const success = require("../utils/successResponse");
 const badRequest = require("../utils/badRequestResponse");
 const notFound = require("../utils/notFoundResponse");
 
+function getAnswers(questionnaireID, questionID) {
+  return Answers.find({ questionnaireID: questionnaireID, 'answers.qID': questionID })
+      .select('answers.$')
+      .sort({'answers.date': 1}).exec();
+}
+
+
 exports.getQuestionAnswers = async (req, res) => {
-  try {
-    const questionnaireID = req.params.questionnaireID;
-    const questionID = req.params.questionID;
-    const questionnaire2 = await Questionnaire.aggregate([
-      {
-        $lookup: {
-          from: "Answers",
-          localField: "questionnaireID",
-          foreignField: "questionnaireID",
-          as: "joinedData",
-        },
-      },
-    ]);
-    const questionnaire = await questionnaire2
-      .findOne(
-        {
-          questionnaireID: questionnaireID,
-          questions: { $elemMatch: { qID: questionID } },
-        },
-        "questionnaireID questions session"
-      )
-      .select({ questions: { $elemMatch: { qID: questionID } } });
-    if (questionnaire === null) return notFound(res);
-    success(res, questionnaire, "Question");
-  } catch (error) {
-    badRequest(res, error);
-  }
-};
+  const questionnaireID = req.params.questionnaireID
+  const questionID = req.params.questionID
+  getAnswers(questionnaireID, questionID)
+  .then((answers)=>{
+    res.json({ answers: answers })
+  })
+  .catch((err)=>{
+    res.json({error:err})
+  });
+}
+
