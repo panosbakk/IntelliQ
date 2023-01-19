@@ -7,7 +7,7 @@ exports.getSessionAnswers = async (req, res) => {
   try {
     const questionnaireID = req.params.questionnaireID;
     const session = req.params.session;
-    const answers = await Answers.findOne({
+    const answers = await Answers.find({
       questionnaireID: questionnaireID,
       session: session,
     });
