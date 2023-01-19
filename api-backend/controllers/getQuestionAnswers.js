@@ -4,10 +4,18 @@ const badRequest = require("../utils/badRequestResponse");
 const notFound = require("../utils/notFoundResponse");
 
 function getAnswers(questionnaireID, questionID) {
-  return Answers.find({ questionnaireID: questionnaireID, 'answers.qID': questionID }, {'session': 1, 'answers.$': 1})
-      .sort({'answers.date': 1}).exec();
+  return Answers.aggregate([
+    {$match: { questionnaireID: questionnaireID }},
+    {$unwind: "$answers"},
+    {$match: { 'answers.qID': questionID }},
+    {$group: { _id: { questionnaireID: "$questionnaireID", qID: "$answers.qID" },
+     ans: { $push: { session: "$session", ans: "$answers.ans" } }
+    }},
+    {$project: {_id:0, questionnaireID: "$_id.questionnaireID", questionID: "$_id.qID", answers: "$ans"}},
+    {$sort: {'answers.ans.date': 1}},
+    {$limit: 1}
+  ]).exec();
 }
-
 
 
 exports.getQuestionAnswers = async (req, res) => {
@@ -15,7 +23,7 @@ exports.getQuestionAnswers = async (req, res) => {
   const questionID = req.params.questionID
   getAnswers(questionnaireID, questionID)
   .then((answers)=>{
-    res.json({ answers: answers })
+    res.json(answers[0])
   })
   .catch((err)=>{
     res.json({error:err})
