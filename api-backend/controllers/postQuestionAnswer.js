@@ -15,7 +15,7 @@ exports.postQuestionAnswer = async (req, res) => {
       answers: { qID: questionID, ans: optionID },
     });
     answer.save((err, doc) => {
-      res.send(undefined);
+      res.send(undefined); // without this line consecutive post request cap at 9
       if (err) console.log("Error during record insertion : " + err);
     });
   } catch (error) {
