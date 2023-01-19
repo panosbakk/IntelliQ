@@ -4,10 +4,10 @@ const badRequest = require("../utils/badRequestResponse");
 const notFound = require("../utils/notFoundResponse");
 
 function getAnswers(questionnaireID, questionID) {
-  return Answers.find({ questionnaireID: questionnaireID, 'answers.qID': questionID })
-      .select('answers.$')
+  return Answers.find({ questionnaireID: questionnaireID, 'answers.qID': questionID }, {'session': 1, 'answers.$': 1})
       .sort({'answers.date': 1}).exec();
 }
+
 
 
 exports.getQuestionAnswers = async (req, res) => {
