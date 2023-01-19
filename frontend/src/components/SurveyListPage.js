@@ -67,7 +67,7 @@ export function SurveyListPage() {
     <>
       <h1>Survey list page</h1>
       {[...Array(4)].map((_, i) => (
-        <SurveyListComponent json={json1} key={i} num={i} />
+        <SurveyListComponent key={i} num={i} />
       ))}
     </>
   );
