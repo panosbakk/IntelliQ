@@ -1,65 +1,65 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const QuestionnaireSchema = new mongoose.Schema({
-    questionnaireID: {
-        type: String,
-        required: true
-    },
+  questionnaireID: {
+    type: String,
+    required: true,
+    unique: true,
+  },
 
-    questionnaireTitle: {
-        type: String,
-        required: true
-    },
+  questionnaireTitle: {
+    type: String,
+    required: true,
+  },
 
-    keywords: [
+  keywords: [
+    {
+      type: String,
+      required: true,
+    },
+  ],
+
+  questions: [
+    {
+      qID: {
+        type: String,
+        unique: true,
+      },
+
+      qtext: {
+        type: String,
+      },
+
+      required: {
+        type: String,
+      },
+
+      type: {
+        type: String,
+        required: true,
+      },
+
+      options: [
         {
+          optID: {
             type: String,
-            required: true
-        }
-    ],
+            required: true,
+            unique: true,
+          },
 
-    questions: [
-        {
-            qID: {
-                type: String,
-            },
+          opttxt: {
+            type: String,
+            required: true,
+          },
 
-            qtext: {
-                type: String,
-
-            },
-
-            required: {
-                type: String,
-            },
-
-            type: {
-                type: String,
-                required: true
-            },
-
-            options: [
-                {
-                    optID: {
-                        type: String,
-                        required: true
-                    },
-
-                    opttxt: {
-                        type: String,
-                        required: true
-                    },
-
-                    nextqID: {
-                        type: String,
-                        required: true
-                    }
-                }
-            ]
-        }
-    ]
-
+          nextqID: {
+            type: String,
+            required: true,
+          },
+        },
+      ],
+    },
+  ],
 });
 
-module.exports = mongoose.model('Questionnaire', QuestionnaireSchema);
-
+module.exports = mongoose.model("Questionnaire", QuestionnaireSchema);
