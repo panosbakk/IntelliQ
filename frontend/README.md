@@ -2,6 +2,16 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Dependencies(Other than react)
+1. Install NodeJs
+2. In the project folder:
+  a. [React Router](https://reactrouter.com/en/main)
+  ### `npm i react-router-dom@latest`
+  b. [SurveyJS](https://surveyjs.io/)
+  ### `npm i survey-react@latest`
+  c. [Bootstrap css](https://getbootstrap.com/)
+  ### `npm i bootstrap@latest`
+
 ## Available Scripts
 
 In the project directory, you can run:
