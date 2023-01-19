@@ -7,9 +7,13 @@ class SurveyListComponent extends Component {
     this.state = { questionnaire: {} };
   }
   componentDidMount() {
-    const key = this.props.num;
+    const key = this.props.num.toLocaleString("en-US", {
+      minimumIntegerDigits: 3,
+      useGrouping: false,
+    });
+
     const myRequest = new Request(
-      `http://localhost:9103/intelliq_api/questionnaire/QQ00${key}`
+      `http://localhost:9103/intelliq_api/questionnaire/QQ${key}`
     );
 
     fetch(myRequest)
@@ -21,7 +25,11 @@ class SurveyListComponent extends Component {
   }
 
   render() {
-    const key = this.props.num + 1;
+    const key = this.props.num.toLocaleString("en-US", {
+      minimumIntegerDigits: 3,
+      useGrouping: false,
+    });
+
     console.log(
       this.state.questionnaire.Questionnaire &&
         this.state.questionnaire.Questionnaire.questionnaireID
@@ -32,7 +40,7 @@ class SurveyListComponent extends Component {
         <h2>
           <Link
             to={{
-              pathname: "/survey/" + key,
+              pathname: "/survey/QQ" + key,
               state: this.state.questionnaire.Questionnaire,
             }}
           >
