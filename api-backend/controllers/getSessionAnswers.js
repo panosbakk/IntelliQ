@@ -10,7 +10,7 @@ exports.getSessionAnswers = async (req, res) => {
     const answers = await Answers.find({
       questionnaireID: questionnaireID,
       session: session,
-    });
+    }).select("-__v -_id -answers._id -answers.__v");
     if (answers === null) return notFound(res);
     success(res, answers, "Answers");
   } catch (error) {

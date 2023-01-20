@@ -5,10 +5,10 @@ const notFound = require("../utils/notFoundResponse");
 
 exports.getQuestionnairebyid = async (req, res) => {
   try {
-    const questID = req.params.questionnaireID;
+    const questionnaireID = req.params.questionnaireID;
     const questionnaire = await Questionnaire.findOne({
-      questionnaireID: questID,
-    });
+      questionnaireID: questionnaireID,
+    }).select("-__v -_id -questions._id -questions.options._id");
     if (questionnaire === null) return notFound(res);
     success(res, questionnaire, "Questionnaire");
   } catch (error) {

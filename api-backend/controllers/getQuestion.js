@@ -8,12 +8,9 @@ exports.getQuestionByID = async (req, res) => {
     const questionnaireID = req.params.questionnaireID;
     const questionID = req.params.questionID;
     const questionnaire = await Questionnaire.findOne(
-      {
-        questionnaireID: questionnaireID,
-        questions: { $elemMatch: { qID: questionID } },
-      },
-      "questionnaireID questions"
-    ).select({ questions: { $elemMatch: { qID: questionID } } });
+      { questionnaireID: questionnaireID, "questions.qID": questionID },
+      { questionnaireID: 1, "questions.$": 1 }
+    );
     if (questionnaire === null) return notFound(res);
     success(res, questionnaire, "Question");
   } catch (error) {
