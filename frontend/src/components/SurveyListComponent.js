@@ -30,11 +30,6 @@ class SurveyListComponent extends Component {
       useGrouping: false,
     });
 
-    console.log(
-      this.state.questionnaire.Questionnaire &&
-        this.state.questionnaire.Questionnaire.questionnaireID
-    );
-
     return this.state.questionnaire.Questionnaire ? (
       <>
         <h2>

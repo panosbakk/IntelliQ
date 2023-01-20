@@ -4,10 +4,14 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 require("custom-env").env("localhost");
 const getQuestionnaireRoute = require("./routes/getQuestionnaire");
+const getQuestionnaireCountRoute = require("./routes/getQuestionnaireCount");
 const getQuestionRoute = require("./routes/getQuestion");
 const getSessionAnswersRoute = require("./routes/getSessionAnswers");
 const getQuestionAnswersRoute = require("./routes/getQuestionAnswers");
 const postQuestionAnswerRoute = require("./routes/postQuestionAnswer");
+const {
+  getQuestionnaireCount,
+} = require("./controllers/getQuestionnaireCount");
 
 const port = process.env.PORT || 9103;
 const username = process.env.MONGO_USERNAME;
@@ -25,6 +29,8 @@ app.get("/intelliq_api", (req, res) => {
 });
 
 app.use("/intelliq_api/questionnaire", getQuestionnaireRoute);
+
+app.use("/intelliq_api/questionnaireCount", getQuestionnaireCountRoute);
 
 app.use("/intelliq_api/question", getQuestionRoute);
 

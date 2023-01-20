@@ -1,10 +1,20 @@
+import React, { useState, useEffect } from "react";
 import SurveyListComponent from "./SurveyListComponent";
 
 export function SurveyListPage() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    fetch("http://localhost:9103/intelliq_api/questionnaireCount")
+      .then((response) => response.json())
+      .then((data) => setCount(data.count))
+      .catch((error) => console.error(error));
+  }, []);
+
   return (
     <>
       <h1>Survey list page</h1>
-      {[...Array(4)].map((_, i) => (
+      {[...Array(count)].map((_, i) => (
         <SurveyListComponent key={i} num={i} />
       ))}
     </>
