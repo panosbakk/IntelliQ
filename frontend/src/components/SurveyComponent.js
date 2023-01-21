@@ -64,12 +64,66 @@ class SurveyComponent extends Component {
       ],
     };
     json.questions.forEach((question) => {
-      if (question.type === "question") {
+      let hasOpenString = question.options.some(
+        (option) => option.opttxt === "<open string>"
+      );
+      if (hasOpenString) {
+        question.options.forEach((option) => {
+          let nextQuestion = json.questions.find(
+            (q) => q.qID === option.nextqID
+          );
+          if (nextQuestion) {
+            nextQuestion.visibleIf = `{${question.qID}} != ""`;
+          }
+        });
+
+        json.questions.forEach((q) => {
+          question.qtext = question.qtext.replace(
+            `[*${q.qID}]`,
+            `[${q.qtext}]`
+          );
+          question.options.forEach((opt) => {
+            question.qtext = question.qtext.replace(
+              `[*${opt.optID}]`,
+              `[${opt.opttxt}]`
+            );
+          });
+        });
+
+        surveyJson.pages[0].elements.push({
+          type: "text",
+          name: question.qID,
+          title: question.qtext,
+          isRequired: question.required === "TRUE",
+          visibleIf: question.visibleIf ? question.visibleIf : null,
+        });
+      } else {
         let choices = [];
         question.options.forEach((option) => {
           choices.push({
             value: option.optID,
             text: option.opttxt,
+          });
+          let nextQuestion = json.questions.find(
+            (q) => q.qID === option.nextqID
+          );
+          if (nextQuestion) {
+            nextQuestion.visibleIf = nextQuestion.visibleIf
+              ? `${nextQuestion.visibleIf} || {${question.qID}} = "${option.optID}"`
+              : `{${question.qID}} = "${option.optID}"`;
+          }
+        });
+
+        json.questions.forEach((q) => {
+          question.qtext = question.qtext.replace(
+            `[*${q.qID}]`,
+            `[${q.qtext}]`
+          );
+          q.options.forEach((opt) => {
+            question.qtext = question.qtext.replace(
+              `[*${opt.optID}]`,
+              `[${opt.opttxt}]`
+            );
           });
         });
 
@@ -77,15 +131,9 @@ class SurveyComponent extends Component {
           type: "radiogroup",
           name: question.qID,
           title: question.qtext,
-          isRequired: question.required,
+          isRequired: question.required === "TRUE",
           choices: choices,
-        });
-      } else if (question.type === "profile") {
-        surveyJson.pages[0].elements.push({
-          type: "text",
-          name: question.qID,
-          title: question.qtext,
-          isRequired: question.required,
+          visibleIf: question.visibleIf ? question.visibleIf : null,
         });
       }
     });
@@ -94,6 +142,7 @@ class SurveyComponent extends Component {
 
   render() {
     const json = this.jsonModifier(this.props.json);
+    console.log(json);
     let surveyRender = !this.state.isCompleted ? (
       <Survey.Survey
         json={json}
