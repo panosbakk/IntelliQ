@@ -82,6 +82,13 @@ const StatisticsComponent = ({ questionnaireID, qID }) => {
               beginAtZero: true,
             },
           },
+          plugins: {
+            legend: {
+              labels: {
+                boxWidth: 0,
+              },
+            },
+          },
         },
       });
     }
