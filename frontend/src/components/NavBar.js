@@ -70,14 +70,6 @@ class NavBar extends Component {
                 </ul>
               </li>
             </ul>
-            <form role="search">
-              <input
-                className="form-control"
-                type="search"
-                placeholder=" Useless Searchbar for now"
-                aria-label="Search"
-              />
-            </form>
           </div>
         </div>
       </nav>

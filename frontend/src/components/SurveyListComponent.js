@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Card, Button } from "reactstrap";
 import { Link } from "react-router-dom";
 
 class SurveyListComponent extends Component {
@@ -31,26 +32,27 @@ class SurveyListComponent extends Component {
     });
 
     return this.state.questionnaire.Questionnaire ? (
-      <>
-        <h2>
-          <Link
-            to={{
-              pathname: "/survey/QQ" + key,
-              state: key,
-            }}
-          >
-            Questionnaire{" "}
-            {this.state.questionnaire.Questionnaire &&
-              this.state.questionnaire.Questionnaire.questionnaireID}
-          </Link>
-        </h2>
-        <h3>
-          Questionnaire Title: "
+      <Card>
+        <h3 className="card-header">
+          Questionnaire{" "}
+          {this.state.questionnaire.Questionnaire &&
+            this.state.questionnaire.Questionnaire.questionnaireID}{" "}
+          {" - "}"
           {this.state.questionnaire.Questionnaire &&
             this.state.questionnaire.Questionnaire.questionnaireTitle}
           "
+          <div className="text-right">
+            <Link to={`/survey/QQ${key}`}>
+              <Button color="primary" style={{ marginRight: "10px" }}>
+                View Questionnaire
+              </Button>
+            </Link>
+            <Link to={`/survey/statistics/QQ${key}`}>
+              <Button color="primary">View Statistics</Button>
+            </Link>
+          </div>
         </h3>
-      </>
+      </Card>
     ) : (
       <h2>Loading...</h2>
     );
