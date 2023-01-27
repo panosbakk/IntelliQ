@@ -44,7 +44,7 @@ const StatisticsComponent = ({ questionnaireID, qID }) => {
         (option) => {
           return {
             label: option.opttxt,
-            data: answerCount[option.optid] || 0,
+            data: answerCount[option.optID],
           };
         }
       );

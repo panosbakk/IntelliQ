@@ -15,6 +15,7 @@
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
     "react-survey": "^1.7.0",
+    "reactstrap": "^9.1.5",
     "survey-react": "^1.9.56",
     "web-vitals": "^2.1.4"
   },

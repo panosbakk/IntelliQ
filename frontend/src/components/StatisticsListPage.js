@@ -1,20 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import StatisticsComponent from "./StatisticsComponent";
+import { Card, CardHeader, Collapse } from "reactstrap";
 
 export function StatisticsListPage() {
   const { id } = useParams();
   const [questionnaireData, setquestionnaireData] = useState([]);
+  const [expandedQuestions, setExpandedQuestions] = useState([]);
 
   useEffect(() => {
     fetch(`http://localhost:9103/intelliq_api/questionnaire/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setquestionnaireData(data);
       })
       .catch((error) => console.error(error));
   }, [id]);
+
+  const handleClick = (qID) => {
+    if (expandedQuestions.includes(qID)) {
+      setExpandedQuestions(expandedQuestions.filter((id) => id !== qID));
+    } else {
+      setExpandedQuestions([...expandedQuestions, qID]);
+    }
+  };
 
   return questionnaireData.Questionnaire ? (
     <>
@@ -22,11 +31,22 @@ export function StatisticsListPage() {
       {questionnaireData.Questionnaire.questions.map((question) => {
         if (question.qID.startsWith("Q")) {
           return (
-            <StatisticsComponent
-              key={question.qID}
-              questionnaireID={questionnaireData.Questionnaire.questionnaireID}
-              qID={question.qID}
-            />
+            <Card key={question.qID} className="mb-2">
+              <CardHeader
+                onClick={() => handleClick(question.qID)}
+                style={{ cursor: "pointer" }}
+              >
+                {question.qID} - {question.qtext}
+              </CardHeader>
+              <Collapse isOpen={expandedQuestions.includes(question.qID)}>
+                <StatisticsComponent
+                  questionnaireID={
+                    questionnaireData.Questionnaire.questionnaireID
+                  }
+                  qID={question.qID}
+                />
+              </Collapse>
+            </Card>
           );
         }
         return null;
