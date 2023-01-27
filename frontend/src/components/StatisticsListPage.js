@@ -4,24 +4,35 @@ import StatisticsComponent from "./StatisticsComponent";
 
 export function StatisticsListPage() {
   const { id } = useParams();
-  const [questionCount, setQuestionCount] = useState(0);
+  const [questionnaireData, setquestionnaireData] = useState([]);
 
   useEffect(() => {
     fetch(`http://localhost:9103/intelliq_api/questionnaire/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        const questionCount = data.Questionnaire.questions.length;
-        setQuestionCount(questionCount);
+        console.log(data);
+        setquestionnaireData(data);
       })
       .catch((error) => console.error(error));
   }, [id]);
 
-  return (
+  return questionnaireData.Questionnaire ? (
     <>
       <h1>Statistics List Page for {id}</h1>
-      {[...Array(questionCount)].map((_, i) => (
-        <StatisticsComponent num={i} />
-      ))}
+      {questionnaireData.Questionnaire.questions.map((question) => {
+        if (question.qID.startsWith("Q")) {
+          return (
+            <StatisticsComponent
+              key={question.qID}
+              questionnaireID={questionnaireData.Questionnaire.questionnaireID}
+              qID={question.qID}
+            />
+          );
+        }
+        return null;
+      })}
     </>
+  ) : (
+    <h2>Loading...</h2>
   );
 }
