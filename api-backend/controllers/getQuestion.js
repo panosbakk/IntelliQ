@@ -13,18 +13,22 @@ async function getQuestionData(questionnaireID, questionID) {
     const { qID, qtext, required, type, options } =
       questionnaire.questions.find((question) => question.qID === questionID);
 
-    return {
+    const result = {
       questionnaireID,
       qID,
       qtext,
       required,
       type,
-      options: options.map(({ optID, opttxt, nextqID }) => ({
-        optID,
-        opttxt,
-        nextqID,
-      })),
+      options: options
+        .map(({ optID, opttxt, nextqID }) => ({
+          optID,
+          opttxt,
+          nextqID,
+        }))
+        .sort((a, b) => a.optID.localeCompare(b.optID)),
     };
+
+    return result;
   } catch (error) {
     console.error(error);
     return null;

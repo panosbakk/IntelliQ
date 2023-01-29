@@ -9,7 +9,14 @@ exports.getQuestionnairebyid = async (req, res) => {
     const format = req.query.format || "json";
     const questionnaire = await Questionnaire.findOne({
       questionnaireID: questionnaireID,
-    }).select("-__v -_id -questions._id -questions.options._id");
+    })
+      .select("-__v -_id -questions._id -questions.options._id")
+      .lean()
+      .then((questionnaire) => {
+        questionnaire.questions.sort((a, b) => a.qID.localeCompare(b.qID));
+        return questionnaire;
+      });
+
     if (questionnaire === null) return notFound(res);
     if (format !== "csv" && format !== "json") {
       return res
