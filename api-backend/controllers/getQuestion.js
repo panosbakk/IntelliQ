@@ -3,15 +3,40 @@ const success = require("../utils/successResponse");
 const badRequest = require("../utils/badRequestResponse");
 const notFound = require("../utils/notFoundResponse");
 
+async function getQuestionData(questionnaireID, questionID) {
+  try {
+    const questionnaire = await Questionnaire.findOne({
+      questionnaireID: questionnaireID,
+      "questions.qID": questionID,
+    });
+
+    const { qID, qtext, required, type, options } =
+      questionnaire.questions.find((question) => question.qID === questionID);
+
+    return {
+      questionnaireID,
+      qID,
+      qtext,
+      required,
+      type,
+      options: options.map(({ optID, opttxt, nextqID }) => ({
+        optID,
+        opttxt,
+        nextqID,
+      })),
+    };
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
 exports.getQuestionByID = async (req, res) => {
   try {
     const questionnaireID = req.params.questionnaireID;
     const questionID = req.params.questionID;
     const format = req.query.format || "json";
-    const questionnaire = await Questionnaire.findOne(
-      { questionnaireID: questionnaireID, "questions.qID": questionID },
-      { questionnaireID: 1, "questions.$": 1 }
-    );
+    const questionnaire = await getQuestionData(questionnaireID, questionID);
     if (questionnaire === null) return notFound(res);
     if (format !== "csv" && format !== "json") {
       return res
