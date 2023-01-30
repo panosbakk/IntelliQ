@@ -142,7 +142,6 @@ class SurveyComponent extends Component {
 
   render() {
     const json = this.jsonModifier(this.props.json);
-    console.log(json);
     let surveyRender = !this.state.isCompleted ? (
       <Survey.Survey
         json={json}
