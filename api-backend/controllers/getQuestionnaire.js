@@ -1,7 +1,6 @@
 const Questionnaire = require("../models/Questionnaire");
 const success = require("../utils/successResponse");
 const badRequest = require("../utils/badRequestResponse");
-const internalServerError = require("../utils/internalServerErrorResponse");
 const noData = require("../utils/noDataResponse");
 
 exports.getQuestionnairebyid = async (req, res) => {
@@ -42,6 +41,6 @@ exports.getQuestionnairebyid = async (req, res) => {
       success(res, questionnaire, "Questionnaire");
     }
   } catch (error) {
-    internalServerError(res, error);
+    badRequest(res, error);
   }
 };

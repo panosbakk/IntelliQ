@@ -1,7 +1,6 @@
 const Questionnaire = require("../models/Questionnaire");
 const success = require("../utils/successResponse");
 const badRequest = require("../utils/badRequestResponse");
-const internalServerError = require("../utils/internalServerErrorResponse");
 const noData = require("../utils/noDataResponse");
 
 async function getQuestionData(questionnaireID, questionID) {
@@ -31,7 +30,7 @@ async function getQuestionData(questionnaireID, questionID) {
 
     return result;
   } catch (error) {
-    return internalServerError(res, error);
+    return badRequest(res, error);
   }
 }
 

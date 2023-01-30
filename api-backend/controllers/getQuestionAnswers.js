@@ -1,7 +1,6 @@
 const Answers = require("../models/Answers");
 const success = require("../utils/successResponse");
 const badRequest = require("../utils/badRequestResponse");
-const internalServerError = require("../utils/internalServerErrorResponse");
 const noData = require("../utils/noDataResponse");
 
 function getAnswers(questionnaireID, questionID) {
@@ -61,6 +60,6 @@ exports.getQuestionAnswers = async (req, res) => {
       res.json(answers[0]);
     }
   } catch (error) {
-    internalServerError(res, error);
+    badRequest(res, error);
   }
 };

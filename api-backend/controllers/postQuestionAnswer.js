@@ -24,6 +24,6 @@ exports.postQuestionAnswer = async (req, res) => {
       if (error) internalServerError(res, error);
     });
   } catch (error) {
-    internalServerError(res, error);
+    badRequest(res, error);
   }
 };
