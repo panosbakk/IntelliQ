@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-
-const userSchema = new Schema({
+require("custom-env").env("localhost");
+const userSchema = new mongoose.Schema({
     username: {type: String, required:true, unique:true},
     password: {type: String, required:true},
     isAdmin: {type: Boolean, default:false},
@@ -9,7 +9,7 @@ const userSchema = new Schema({
 
 userSchema.methods.generateAuthToken = function() {
     const token = jwt
-    .sign({username: this.username, isAdmin: this.isAdmin}, config.get('jwtPrivateKey'))
+    .sign({username: this.username, isAdmin: this.isAdmin}, process.env.JWTSECRET)
     return token
 }
 
