@@ -1,13 +1,14 @@
 const Questionnaire = require("../models/Questionnaire");
 const success = require("../utils/successResponse");
-const badRequest = require("../utils/badRequestResponse");
-const notFound = require("../utils/notFoundResponse");
+const internalServerError = require("../utils/internalServerErrorResponse");
+const noData = require("../utils/noDataResponse");
 
 exports.getQuestionnaireCount = async (req, res) => {
   try {
     const count = await Questionnaire.count();
+    if (count === 0) return noData(res, "No questionnaires found");
     success(res, count, "count");
   } catch (error) {
-    badRequest(res, error);
+    internalServerError(res, error);
   }
 };

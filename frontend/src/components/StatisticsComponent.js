@@ -40,21 +40,19 @@ const StatisticsComponent = ({ questionnaireID, qID }) => {
           answerCount[answer.ans] = 1;
         }
       });
-      const chartData = questionData.Question.questions[0].options.map(
-        (option) => {
-          return {
-            label: option.opttxt,
-            data: answerCount[option.optID],
-          };
-        }
-      );
+      const chartData = questionData.Question.options.map((option) => {
+        return {
+          label: option.opttxt,
+          data: answerCount[option.optID],
+        };
+      });
       new Chart(ctx, {
         type: "bar",
         data: {
           labels: chartData.map((data) => data.label),
           datasets: [
             {
-              label: questionData.Question.questions[0].qtext,
+              label: questionData.Question.qtext,
               data: chartData.map((data) => data.data),
               backgroundColor: [
                 "rgba(255, 99, 132, 0.2)",

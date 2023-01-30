@@ -1,7 +1,8 @@
 const Questionnaire = require("../models/Questionnaire");
 const success = require("../utils/successResponse");
 const badRequest = require("../utils/badRequestResponse");
-const notFound = require("../utils/notFoundResponse");
+const internalServerError = require("../utils/internalServerErrorResponse");
+const noData = require("../utils/noDataResponse");
 
 async function getQuestionData(questionnaireID, questionID) {
   try {
@@ -30,8 +31,7 @@ async function getQuestionData(questionnaireID, questionID) {
 
     return result;
   } catch (error) {
-    console.error(error);
-    return null;
+    return internalServerError(res, error);
   }
 }
 
@@ -40,12 +40,19 @@ exports.getQuestionByID = async (req, res) => {
     const questionnaireID = req.params.questionnaireID;
     const questionID = req.params.questionID;
     const format = req.query.format || "json";
+    if (!questionnaireID || !questionID) {
+      return badRequest(
+        res,
+        "Invalid request. QuestionnaireID and QuestionID are required parameters."
+      );
+    }
     const questionnaire = await getQuestionData(questionnaireID, questionID);
-    if (questionnaire === null) return notFound(res);
+    if (questionnaire === null) return noData(res);
     if (format !== "csv" && format !== "json") {
-      return res
-        .status(400)
-        .json({ error: "Invalid format. format should be either csv or json" });
+      return badRequest(
+        res,
+        "Invalid format. format should be either csv or json"
+      );
     }
     if (format === "csv") {
       const json2csv = require("json2csv").parse;
@@ -53,7 +60,7 @@ exports.getQuestionByID = async (req, res) => {
       const csv = json2csv(questionnaire, { fields });
       res.set("Content-Type", "text/csv");
       res.set("Content-Disposition", "attachment; filename=question.csv");
-      res.status(200).send(csv);
+      success(res, csv);
     } else {
       success(res, questionnaire, "Question");
     }

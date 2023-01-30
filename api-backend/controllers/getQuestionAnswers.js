@@ -1,7 +1,8 @@
 const Answers = require("../models/Answers");
 const success = require("../utils/successResponse");
 const badRequest = require("../utils/badRequestResponse");
-const notFound = require("../utils/notFoundResponse");
+const internalServerError = require("../utils/internalServerErrorResponse");
+const noData = require("../utils/noDataResponse");
 
 function getAnswers(questionnaireID, questionID) {
   return Answers.aggregate([
@@ -32,13 +33,20 @@ exports.getQuestionAnswers = async (req, res) => {
     const questionnaireID = req.params.questionnaireID;
     const questionID = req.params.questionID;
     const format = req.query.format || "json";
+    if (!questionnaireID || !questionID) {
+      return badRequest(
+        res,
+        "Invalid request. QuestionnaireID and QuestionID are required parameters."
+      );
+    }
     if (format !== "csv" && format !== "json") {
-      return res
-        .status(400)
-        .json({ error: "Invalid format. format should be either csv or json" });
+      return badRequest(
+        res,
+        "Invalid format. format should be either csv or json"
+      );
     }
     const answers = await getAnswers(questionnaireID, questionID);
-    if (answers.length === 0) return notFound(res);
+    if (answers.length === 0) return noData(res);
     if (format === "csv") {
       const json2csv = require("json2csv").parse;
       const fields = Object.keys(answers[0]);
@@ -48,11 +56,11 @@ exports.getQuestionAnswers = async (req, res) => {
         "Content-Disposition",
         "attachment; filename=question-answers.csv"
       );
-      res.status(200).send(csv);
+      success(res, csv);
     } else {
       res.json(answers[0]);
     }
   } catch (error) {
-    res.json({ error });
+    internalServerError(res, error);
   }
 };

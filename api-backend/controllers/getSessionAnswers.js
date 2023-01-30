@@ -1,7 +1,8 @@
 const Answers = require("../models/Answers");
 const success = require("../utils/successResponse");
 const badRequest = require("../utils/badRequestResponse");
-const notFound = require("../utils/notFoundResponse");
+const internalServerError = require("../utils/internalServerErrorResponse");
+const noData = require("../utils/noDataResponse");
 
 async function getAnswers(questionnaireID, session) {
   try {
@@ -24,8 +25,7 @@ async function getAnswers(questionnaireID, session) {
 
     return result;
   } catch (error) {
-    console.error(error);
-    return null;
+    return internalServerError(res, error);
   }
 }
 
@@ -34,12 +34,19 @@ exports.getSessionAnswers = async (req, res) => {
     const questionnaireID = req.params.questionnaireID;
     const session = req.params.session;
     const format = req.query.format || "json";
+    if (!questionnaireID || !session) {
+      return badRequest(
+        res,
+        "Invalid request. QuestionnaireID and Session are required parameters."
+      );
+    }
     const answers = await getAnswers(questionnaireID, session);
-    if (answers === null) return notFound(res);
+    if (answers === null) return noData(res);
     if (format !== "csv" && format !== "json") {
-      return res
-        .status(400)
-        .json({ error: "Invalid format. format should be either csv or json" });
+      return badRequest(
+        res,
+        "Invalid format. format should be either csv or json"
+      );
     }
     if (format === "csv") {
       const json2csv = require("json2csv").parse;
@@ -50,7 +57,7 @@ exports.getSessionAnswers = async (req, res) => {
         "Content-Disposition",
         "attachment; filename=session-answers.csv"
       );
-      res.status(200).send(csv);
+      success(res, csv);
     } else {
       success(res, answers, "Answers");
     }
