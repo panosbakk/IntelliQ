@@ -59,7 +59,7 @@ exports.getSessionAnswers = async (req, res) => {
       );
       success(res, csv);
     } else {
-      success(res, answers, "Answers");
+      success(res, answers);
     }
   } catch (error) {
     badRequest(res, error);

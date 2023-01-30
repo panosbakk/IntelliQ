@@ -57,7 +57,7 @@ exports.getQuestionAnswers = async (req, res) => {
       );
       success(res, csv);
     } else {
-      res.json(answers[0]);
+      success(res, answers[0]);
     }
   } catch (error) {
     badRequest(res, error);

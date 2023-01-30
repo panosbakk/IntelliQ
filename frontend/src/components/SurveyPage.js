@@ -16,7 +16,7 @@ export function SurveyPage() {
   return data ? (
     <>
       <h1>Survey Page {id}</h1>
-      <SurveyComponent json={data.Questionnaire} />
+      <SurveyComponent json={data} />
     </>
   ) : (
     <h2>Loading...</h2>

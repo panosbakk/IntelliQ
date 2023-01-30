@@ -8,7 +8,7 @@ export function SurveyListPage() {
   useEffect(() => {
     fetch("http://localhost:9103/intelliq_api/questionnaireCount")
       .then((response) => response.json())
-      .then((data) => setCount(data.count))
+      .then((data) => setCount(data))
       .catch((error) => console.error(error));
   }, []);
 

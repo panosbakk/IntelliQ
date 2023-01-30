@@ -31,15 +31,14 @@ class SurveyListComponent extends Component {
       useGrouping: false,
     });
 
-    return this.state.questionnaire.Questionnaire ? (
+    return this.state.questionnaire ? (
       <Card>
         <h3 className="card-header">
           Questionnaire{" "}
-          {this.state.questionnaire.Questionnaire &&
-            this.state.questionnaire.Questionnaire.questionnaireID}{" "}
+          {this.state.questionnaire && this.state.questionnaire.questionnaireID}{" "}
           {" - "}"
-          {this.state.questionnaire.Questionnaire &&
-            this.state.questionnaire.Questionnaire.questionnaireTitle}
+          {this.state.questionnaire &&
+            this.state.questionnaire.questionnaireTitle}
           "
           <div className="text-right">
             <Link to={`/survey/QQ${key}`}>

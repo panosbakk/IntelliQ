@@ -38,7 +38,7 @@ exports.getQuestionnairebyid = async (req, res) => {
       res.set("Content-Disposition", "attachment; filename=questionnaire.csv");
       success(res, csv);
     } else {
-      success(res, questionnaire, "Questionnaire");
+      success(res, questionnaire);
     }
   } catch (error) {
     badRequest(res, error);

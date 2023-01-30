@@ -25,10 +25,10 @@ export function StatisticsListPage() {
     }
   };
 
-  return questionnaireData.Questionnaire ? (
+  return questionnaireData.questions ? (
     <>
       <h1>Statistics List Page for {id}</h1>
-      {questionnaireData.Questionnaire.questions.map((question) => {
+      {questionnaireData.questions.map((question) => {
         if (question.qID.startsWith("Q")) {
           return (
             <Card key={question.qID} className="mb-2">
@@ -40,9 +40,7 @@ export function StatisticsListPage() {
               </CardHeader>
               <Collapse isOpen={expandedQuestions.includes(question.qID)}>
                 <StatisticsComponent
-                  questionnaireID={
-                    questionnaireData.Questionnaire.questionnaireID
-                  }
+                  questionnaireID={questionnaireData.questionnaireID}
                   qID={question.qID}
                 />
               </Collapse>

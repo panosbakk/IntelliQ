@@ -7,7 +7,7 @@ exports.getQuestionnaireCount = async (req, res) => {
   try {
     const count = await Questionnaire.count();
     if (count === 0) return noData(res, "No questionnaires found");
-    success(res, count, "count");
+    success(res, count);
   } catch (error) {
     badRequest(res, error);
   }

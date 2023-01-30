@@ -40,7 +40,7 @@ const StatisticsComponent = ({ questionnaireID, qID }) => {
           answerCount[answer.ans] = 1;
         }
       });
-      const chartData = questionData.Question.options.map((option) => {
+      const chartData = questionData.options.map((option) => {
         return {
           label: option.opttxt,
           data: answerCount[option.optID],
@@ -52,7 +52,7 @@ const StatisticsComponent = ({ questionnaireID, qID }) => {
           labels: chartData.map((data) => data.label),
           datasets: [
             {
-              label: questionData.Question.qtext,
+              label: questionData.qtext,
               data: chartData.map((data) => data.data),
               backgroundColor: [
                 "rgba(255, 99, 132, 0.2)",
@@ -94,7 +94,6 @@ const StatisticsComponent = ({ questionnaireID, qID }) => {
 
   return questionData ? (
     <div>
-      <h2>{questionData.qtext}</h2>
       <canvas id={`chart-${qID}`} />
     </div>
   ) : (
