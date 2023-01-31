@@ -1,16 +1,37 @@
 const mongoose = require('mongoose');
-require("custom-env").env("localhost");
-const userSchema = new mongoose.Schema({
-    username: {type: String, required:true, unique:true},
-    password: {type: String, required:true},
-    isAdmin: {type: Boolean, default:false},
-    isLoggedIn: {type:Boolean, default:false}
-})
+const bcrypt = require('bcryptjs');
 
-userSchema.methods.generateAuthToken = function() {
-    const token = jwt
-    .sign({username: this.username, isAdmin: this.isAdmin}, process.env.JWTSECRET)
-    return token
+if (!mongoose.models.User) {
+  const userSchema = new mongoose.Schema({
+    username: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    password: {
+      type: String,
+      required: true
+    },
+    admin: {
+      type: Boolean,
+      default: false
+    }
+  });
+  
+  userSchema.pre('save', async function (next) {
+    try {
+      const salt = await bcrypt.genSalt(10);
+      const hash = await bcrypt.hash(this.password, salt);
+      this.password = hash;
+      next();
+    } catch (error) {
+      next(error);
+    }
+  });
+  
+  const User = mongoose.model('User', userSchema);
+  
+  module.exports = User;
 }
 
-module.exports = mongoose.model('User', userSchema, 'User');
+
