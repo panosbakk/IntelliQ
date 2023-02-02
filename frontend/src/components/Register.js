@@ -7,13 +7,17 @@ import {
   Input,
   Container,
   Row,
+  Alert,
 } from "reactstrap";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [admin, setAdmin] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,16 +41,27 @@ const Register = () => {
         throw new Error(response.statusText);
       }
 
-      const data = await response.json();
-      console.log(data);
+      setSuccess(true);
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
     } catch (error) {
       setError(error.message);
+      setTimeout(() => {
+        setError(!error);
+      }, 2000);
     }
   };
 
   return (
     <Container className="d-flex flex-column align-items-center">
-      <Row>{error && <p className="text-danger">{error}</p>}</Row>
+      <h2>Registration Page</h2>
+      <Row>{error && <Alert color="danger">{error}</Alert>}</Row>
+      <Row>
+        {success && (
+          <Alert color="success">User registered successfully!</Alert>
+        )}
+      </Row>
       <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Label for="username">Username</Label>
@@ -78,9 +93,11 @@ const Register = () => {
             Admin
           </Label>
         </FormGroup>
-        <Button type="submit" color="primary" className="mr-3">
-          Register
-        </Button>
+        <FormGroup className="d-flex justify-content-end">
+          <Button type="submit" color="primary">
+            Register
+          </Button>
+        </FormGroup>
       </Form>
     </Container>
   );
