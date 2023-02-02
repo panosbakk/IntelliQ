@@ -56,8 +56,8 @@ const Register = () => {
   return (
     <Container className="d-flex flex-column align-items-center">
       <h2>Registration Page</h2>
+      <Row>{error && <Alert color="danger">{error}</Alert>}</Row>
       <Row>
-        {error && <Alert color="danger">{error}</Alert>}
         {success && (
           <Alert color="success">User registered successfully!</Alert>
         )}
