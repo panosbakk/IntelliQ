@@ -67,11 +67,6 @@ const Login = () => {
             Login
           </Button>
         </FormGroup>
-        {error && (
-          <FormGroup>
-            <p className="text-danger">{error}</p>
-          </FormGroup>
-        )}
       </Form>
     </Container>
   );

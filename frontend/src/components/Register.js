@@ -78,9 +78,11 @@ const Register = () => {
             Admin
           </Label>
         </FormGroup>
-        <Button type="submit" color="primary" className="mr-3">
-          Register
-        </Button>
+        <FormGroup className="d-flex justify-content-end">
+          <Button type="submit" color="primary">
+            Register
+          </Button>
+        </FormGroup>
       </Form>
     </Container>
   );
