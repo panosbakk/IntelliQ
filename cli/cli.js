@@ -44,7 +44,7 @@ program
             })
     })
 
-    program
+program
     .command('logout')
     .action(function(options) {
 
@@ -86,7 +86,7 @@ program
             })
     })
 
-    program
+program
     .command('resetall')
     .action(function() {
 
@@ -107,7 +107,7 @@ program
             })
     })
 
-    program
+program
     .command('questionnaire_upd')
     .option('--source <source>', 'source file')
     .action(function() {
@@ -134,7 +134,7 @@ program
             })
     })
 
-    program
+program
     .command('resetq')
     .option('--questionnaire_ID <questionnaire_ID>', 'questionnaire ID')
     .action(function(options) {
@@ -162,7 +162,7 @@ program
             })
     })
 
-    program
+program
     .command('questionnaire')
     .option('--questionnaire_ID <questionnaire_ID>', 'questionnaire ID')
     .action(function() {
@@ -191,7 +191,7 @@ program
     })
 
 
-    program
+program
     .command('question')
     .option('--questionnaire_ID <questionnaire_ID>', 'questionnaire ID')
     .option('--question_ID <question_ID>', 'question ID')
@@ -225,7 +225,7 @@ program
             })
     })
 
-    program
+program
     .command('doanswer')
     .option('--questionnaire_ID <questionnaire_ID>', 'questionnaire ID')
     .option('--question_ID <question_ID>', 'question ID')
@@ -271,7 +271,7 @@ program
     })
 
 
-    program
+program
     .command('getsessionanswers')
     .option('--questionnaire_ID <questionnaire_ID>', 'questionnaire ID')
     .option('--session_ID <session_ID>', 'session ID')
@@ -305,7 +305,7 @@ program
             })
     })
 
-    program
+program
     .command('getquestionanswers')
     .option('--questionnaire_ID <questionnaire_ID>', 'questionnaire ID')
     .option('--question_ID <question_ID>', 'question ID')
@@ -339,7 +339,7 @@ program
             })
     })
 
-    program
+program
     .command('usermod')
     .option('--username <username>', 'username')
     .option('--password <password>', 'password')
@@ -374,7 +374,7 @@ program
             })
     })
 
-    program
+program
     .command('users')
     .option('--username <username>', 'username')
     .action(function(options) {
