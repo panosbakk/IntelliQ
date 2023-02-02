@@ -1,54 +1,88 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import {
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Container,
+  Row,
+} from "reactstrap";
 
 const Register = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [admin, setAdmin] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:9103/intelliq_api/register', {
-        username,
-        password,
-        admin,
-      });
-      console.log(res.data);
+      const response = await fetch(
+        "http://localhost:9103/intelliq_api/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username,
+            password,
+            admin,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
+      const data = await response.json();
+      console.log(data);
     } catch (error) {
-      setError(error.response.data.error);
+      setError(error.message);
     }
   };
 
   return (
-    <div>
-      {error && <p>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <label htmlFor="admin">
-          Admin
-          <input
-            type="checkbox"
-            id="admin"
-            checked={admin}
-            onChange={() => setAdmin(!admin)}
+    <Container className="d-flex flex-column align-items-center">
+      <Row>{error && <p className="text-danger">{error}</p>}</Row>
+      <Form onSubmit={handleSubmit}>
+        <FormGroup>
+          <Label for="username">Username</Label>
+          <Input
+            type="text"
+            id="username"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
-        </label>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+        </FormGroup>
+        <FormGroup>
+          <Label for="password">Password</Label>
+          <Input
+            type="password"
+            id="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </FormGroup>
+        <FormGroup check>
+          <Label check>
+            <Input
+              type="checkbox"
+              checked={admin}
+              onChange={() => setAdmin(!admin)}
+            />{" "}
+            Admin
+          </Label>
+        </FormGroup>
+        <Button type="submit" color="primary" className="mr-3">
+          Register
+        </Button>
+      </Form>
+    </Container>
   );
 };
 
