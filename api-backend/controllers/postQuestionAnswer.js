@@ -14,15 +14,40 @@ exports.postQuestionAnswer = async (req, res) => {
         "Invalid request. QuestionnaireID, QuestionID, Session and OptionID are all required parameters."
       );
     }
-    const answer = new Answers({
+    // Check if answer with same questionnaireID and session already exists
+    const existingAnswer = await Answers.findOne({
       questionnaireID: questionnaireID,
       session: session,
-      answers: { qID: questionID, ans: optionID },
     });
-    answer.save((error, doc) => {
-      res.send(undefined); // without this line consecutive post requests cap at 9
-      if (error) internalServerError(res, error);
-    });
+
+    if (existingAnswer) {
+      // Check if qID and optionID already exist in the answers array
+      let answerExists = false;
+      existingAnswer.answers.forEach((answer) => {
+        if (answer.qID === questionID) {
+          answer.ans = optionID;
+          answerExists = true;
+        }
+      });
+
+      // If qID and optionID don't exist, add to answers array
+      if (!answerExists) {
+        existingAnswer.answers.push({ qID: questionID, ans: optionID });
+      }
+
+      // Save the updated answer
+      await existingAnswer.save();
+      res.send(undefined);
+    } else {
+      // Save new answer
+      const answer = new Answers({
+        questionnaireID: questionnaireID,
+        session: session,
+        answers: [{ qID: questionID, ans: optionID }],
+      });
+      await answer.save();
+      res.send(undefined);
+    }
   } catch (error) {
     badRequest(res, error);
   }
