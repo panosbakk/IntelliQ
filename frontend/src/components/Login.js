@@ -16,6 +16,7 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setError(null);
 
     try {
       const response = await fetch("http://localhost:9103/intelliq_api/login", {
@@ -27,7 +28,8 @@ const Login = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Incorrect username or password");
+        const data = await response.json();
+        throw new Error(data.message || "Incorrect username or password");
       }
 
       const data = await response.json();
@@ -41,7 +43,9 @@ const Login = () => {
   return (
     <Container className="d-flex flex-column align-items-center">
       <h2>Login Page</h2>
-      <Row>{error && <p className="text-danger">{error}</p>}</Row>
+      <Row>
+        {error && <p className="text-danger">{error}</p>}
+      </Row>
       <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Label for="username">Username</Label>
