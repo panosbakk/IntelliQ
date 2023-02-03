@@ -1,11 +1,5 @@
-const express = require("express");
-const router = express.Router();
+module.exports = (app) => {
+  const { getQuestionAnswers } = require("../controllers/getQuestionAnswers.js");
 
-const getQuestionAnswers = require("../controllers/getQuestionAnswers");
-
-router.get(
-  "/:questionnaireID/:questionID",
-  getQuestionAnswers.getQuestionAnswers
-);
-
-module.exports = router;
+  app.get('/intelliq_api/getquestionanswers/:questionnaireID/:questionID', getQuestionAnswers);
+}

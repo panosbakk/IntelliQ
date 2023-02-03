@@ -1,8 +1,6 @@
-const express = require('express');
-const router = express.Router();
+module.exports = (app) => {
+    const {logout} = require('../controllers/logoutController')
+    const { auth } = require('../middleware/auth')
 
-const logoutRoute = require('../controllers/logoutController');
-
-router.post("/logout", logoutRoute.logout);
-
-module.exports = router;
+    app.post('/intelliq_api/logout', auth, logout);
+}

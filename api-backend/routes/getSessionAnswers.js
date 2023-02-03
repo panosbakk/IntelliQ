@@ -1,8 +1,4 @@
-const express = require("express");
-const router = express.Router();
-
-const getSessionAnswers = require("../controllers/getSessionAnswers");
-
-router.get("/:questionnaireID/:session", getSessionAnswers.getSessionAnswers);
-
-module.exports = router;
+module.exports = (app) => {
+    const { getSessionAnswers } = require("../controllers/getSessionAnswers.js");
+    app.get('/intelliq_api/getsessionanswers/:questionnaireID/:session', getSessionAnswers);
+}
