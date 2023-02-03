@@ -9,7 +9,7 @@ const AnswerSchema = new mongoose.Schema({
   session: {
     type: String,
     required: true,
-    unique: true,
+    unique: true
   },
 
   answers: [
@@ -17,7 +17,7 @@ const AnswerSchema = new mongoose.Schema({
       qID: {
         type: String,
         required: true,
-        unique: true,
+        unique: true
       },
 
       ans: {
@@ -27,6 +27,4 @@ const AnswerSchema = new mongoose.Schema({
   ],
 });
 
-const Answers = mongoose.model("Answers", AnswerSchema);
-
-module.exports = Answers;
+module.exports = mongoose.model("Answers", AnswerSchema);

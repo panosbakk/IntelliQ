@@ -1,35 +1,36 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken')
+const config = require('config')
 
-if (!mongoose.models.User) {
-  const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     username: {
-      type: String,
-      required: true,
-      unique: true,
+        type: String,
+        unique: true,
+        required: true
     },
     password: {
-      type: String,
-      required: true,
+        type: String,
+        required: true,
     },
-    admin: {
-      type: Boolean,
-      default: false,
+    
+    isAdmin: {
+        type: Boolean,
+        default: false
     },
-  });
-
-  userSchema.pre("save", async function (next) {
-    try {
-      const salt = await bcrypt.genSalt(10);
-      const hash = await bcrypt.hash(this.password, salt);
-      this.password = hash;
-      next();
-    } catch (error) {
-      next(error);
+    isLoggedIn: {
+        type: Boolean,
+        default: false
     }
-  });
+}, {
+    timestamps: false
+});
 
-  const User = mongoose.model("User", userSchema);
-
-  module.exports = User;
+userSchema.methods.generateAuthToken = function() {
+    const token = jwt
+    .sign({username: this.username, isAdmin: this.isAdmin}, config.get('jwtPrivateKey'))
+    return token
 }
+
+const User = mongoose.model('User', userSchema,'User');
+
+exports.User = User
