@@ -34,7 +34,7 @@ class SurveyComponent extends Component {
       let optionID = data[key];
       console.log(questionID, optionID);
       try {
-        const res = await fetch(
+        await fetch(
           `http://localhost:9103/intelliq_api/doanswer/${questionnaireID}/${questionID}/${session}/${optionID}`,
           {
             method: "POST",
@@ -44,10 +44,8 @@ class SurveyComponent extends Component {
             body: JSON.stringify({ question: key, answer: data[key] }),
           }
         );
-        const jsonData = await res.json();
-        console.log(jsonData);
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        console.log(error);
       }
     });
   };

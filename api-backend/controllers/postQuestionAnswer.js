@@ -37,7 +37,7 @@ exports.postQuestionAnswer = async (req, res) => {
 
       // Save the updated answer
       await existingAnswer.save();
-      res.send(undefined);
+      res.sendStatus(204);
     } else {
       // Save new answer
       const answer = new Answers({
@@ -46,7 +46,7 @@ exports.postQuestionAnswer = async (req, res) => {
         answers: [{ qID: questionID, ans: optionID }],
       });
       await answer.save();
-      res.send(undefined);
+      res.sendStatus(204);
     }
   } catch (error) {
     badRequest(res, error);
