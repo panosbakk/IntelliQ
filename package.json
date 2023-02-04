@@ -1,6 +1,6 @@
 {
     "scripts": {
-    "install-all": "npm install && cd frontend && npm install && cd ../api-backend && npm install",
+    "install-all": "npm install && cd frontend && npm install && cd ../api-backend && npm install cd ../cli && npm install",
     "start": "concurrently \"cd frontend && npm start\" \"cd api-backend && npm start\""
 }
 }
