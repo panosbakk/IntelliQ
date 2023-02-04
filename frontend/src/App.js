@@ -8,7 +8,7 @@ import { StatisticsListPage } from "./components/StatisticsListPage";
 import { NotFound } from "./components/NotFound";
 import { Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
-import Register from "./components/Register";
+import Logout from "./components/Logout";
 
 const App = () => {
   return (
@@ -24,7 +24,7 @@ const App = () => {
             element={<StatisticsListPage />}
           />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/logout" element={<Logout />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
