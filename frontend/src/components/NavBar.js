@@ -43,11 +43,11 @@ const NavBar = () => {
             </DropdownMenu>
           </UncontrolledDropdown>
           <NavItem className="ml-auto">
-            <Button tag={Link} to="/register" color="primary" className="mr-3">
-              Register
-            </Button>
-            <Button tag={Link} to="/login" color="secondary">
+            <Button tag={Link} to="/login" color="primary" className="mr-3">
               Login
+            </Button>
+            <Button tag={Link} to="/logout" color="secondary" >
+              Logout
             </Button>
           </NavItem>
         </Nav>
