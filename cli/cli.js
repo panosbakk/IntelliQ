@@ -165,7 +165,7 @@ program
 program
     .command('questionnaire')
     .option('--questionnaire_ID <questionnaire_ID>', 'questionnaire ID')
-    .action(function() {
+    .action(function(options) {
 
         if (options.questionnaire_ID == undefined){
             console.log("Must define questionnaire ID using '--questionnaire_ID' option")
@@ -195,7 +195,7 @@ program
     .command('question')
     .option('--questionnaire_ID <questionnaire_ID>', 'questionnaire ID')
     .option('--question_ID <question_ID>', 'question ID')
-    .action(function() {
+    .action(function(options) {
         if (options.questionnaire_ID == undefined || options.question_ID == undefined) {
             if (options.questionnaire_ID == undefined){
                 console.log("Must define questionnaire ID using '--questionnaire_ID' option")
@@ -209,7 +209,7 @@ program
         let config = {
             method: 'get',
             url: 'http://localhost:9103/intelliq_api/question/' +
-            ((options.questionnaire_ID != undefined) ? options.questionnaire_ID : '') +
+            ((options.questionnaire_ID != undefined) ? options.questionnaire_ID : '') + '/' +
             ((options.question_ID != undefined) ? options.question_ID : '')
         }
         axios(config)
@@ -231,7 +231,7 @@ program
     .option('--question_ID <question_ID>', 'question ID')
     .option('--session_ID <session_ID>', 'session ID')
     .option('--option_ID <option_ID>', 'option ID')
-    .action(function() {
+    .action(function(options) {
 
         if (options.questionnaire_ID == undefined || options.question_ID == undefined || options.session_ID == undefined || options.option_ID == undefined) {
             if (options.questionnaire_ID == undefined){
@@ -252,9 +252,9 @@ program
         let config = {
             method: 'post',
             url: 'http://localhost:9103/intelliq_api/doanswer/' +
-            ((options.questionnaire_ID != undefined) ? options.questionnaire_ID : '') +
-            ((options.question_ID != undefined) ? options.question_ID : '') +
-            ((options.session_ID != undefined) ? options.session_ID : '') +
+            ((options.questionnaire_ID != undefined) ? options.questionnaire_ID : '') + '/' +
+            ((options.question_ID != undefined) ? options.question_ID : '') + '/' +
+            ((options.session_ID != undefined) ? options.session_ID : '') + '/' +
             ((options.option_ID != undefined) ? options.option_ID : '')
         }
         axios(config)
@@ -275,7 +275,7 @@ program
     .command('getsessionanswers')
     .option('--questionnaire_ID <questionnaire_ID>', 'questionnaire ID')
     .option('--session_ID <session_ID>', 'session ID')
-    .action(function() {
+    .action(function(options) {
         if (options.questionnaire_ID == undefined || options.session_ID == undefined) {
             if (options.questionnaire_ID == undefined){
                 console.log("Must define questionnaire ID using '--questionnaire_ID' option")
@@ -289,7 +289,7 @@ program
         let config = {
             method: 'get',
             url: 'http://localhost:9103/intelliq_api/getsessionanswers/' +
-            ((options.questionnaire_ID != undefined) ? options.questionnaire_ID : '') +
+            ((options.questionnaire_ID != undefined) ? options.questionnaire_ID : '') + '/' +
             ((options.session_ID != undefined) ? options.session_ID : '')
         }
         axios(config)
@@ -309,7 +309,7 @@ program
     .command('getquestionanswers')
     .option('--questionnaire_ID <questionnaire_ID>', 'questionnaire ID')
     .option('--question_ID <question_ID>', 'question ID')
-    .action(function() {
+    .action(function(options) {
         if (options.questionnaire_ID == undefined || options.question_ID == undefined) {
             if (options.questionnaire_ID == undefined){
                 console.log("Must define questionnaire ID using '--questionnaire_ID' option")
@@ -323,7 +323,7 @@ program
         let config = {
             method: 'get',
             url: 'http://localhost:9103/intelliq_api/getquestionanswers/' +
-            ((options.questionnaire_ID != undefined) ? options.questionnaire_ID : '') +
+            ((options.questionnaire_ID != undefined) ? options.questionnaire_ID : '') + '/' +
             ((options.question_ID != undefined) ? options.question_ID : '')
         }
         axios(config)
@@ -339,7 +339,7 @@ program
             })
     })
 
-program
+/*program
     .command('usermod')
     .option('--username <username>', 'username')
     .option('--password <password>', 'password')
@@ -372,9 +372,9 @@ program
                 if (err.response.status == 404)
                     console.log("Page Not Found")
             })
-    })
+    })*/
 
-program
+/*program
     .command('users')
     .option('--username <username>', 'username')
     .action(function(options) {
@@ -400,6 +400,6 @@ program
                 if (err.response.status == 404)
                     console.log("Page Not Found")
             })
-    })
+    })*/
 
 program.parse(process.argv);
