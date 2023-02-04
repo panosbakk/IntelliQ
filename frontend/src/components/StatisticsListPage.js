@@ -2,20 +2,30 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import StatisticsComponent from "./StatisticsComponent";
 import { Card, CardHeader, Collapse } from "reactstrap";
+import { NotFound } from "./NotFound";
 
 export function StatisticsListPage() {
   const { id } = useParams();
   const [questionnaireData, setquestionnaireData] = useState([]);
   const [expandedQuestions, setExpandedQuestions] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:9103/intelliq_api/questionnaire/${id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setquestionnaireData(data);
-      })
-      .catch((error) => console.error(error));
-  }, [id]);
+    if (localStorage.getItem("token")) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetch(`http://localhost:9103/intelliq_api/questionnaire/${id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setquestionnaireData(data);
+        })
+        .catch((error) => console.error(error));
+    }
+  }, [id, isLoggedIn]);
 
   const handleClick = (qID) => {
     if (expandedQuestions.includes(qID)) {
@@ -24,6 +34,10 @@ export function StatisticsListPage() {
       setExpandedQuestions([...expandedQuestions, qID]);
     }
   };
+
+  if (!isLoggedIn) {
+    return <NotFound />;
+  }
 
   return questionnaireData.questions ? (
     <>

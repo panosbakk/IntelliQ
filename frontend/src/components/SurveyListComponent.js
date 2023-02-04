@@ -25,6 +25,10 @@ class SurveyListComponent extends Component {
       .catch((error) => console.error(error));
   }
 
+  isUserAuthenticated = () => {
+    return localStorage.getItem("token") !== null;
+  };
+
   render() {
     const key = this.props.num.toLocaleString("en-US", {
       minimumIntegerDigits: 3,
@@ -46,9 +50,11 @@ class SurveyListComponent extends Component {
                 View Questionnaire
               </Button>
             </Link>
-            <Link to={`/survey/statistics/QQ${key}`}>
-              <Button color="primary">View Statistics</Button>
-            </Link>
+            {this.isUserAuthenticated() && (
+              <Link to={`/survey/statistics/QQ${key}`}>
+                <Button color="primary">View Statistics</Button>
+              </Link>
+            )}
           </div>
         </h3>
       </Card>

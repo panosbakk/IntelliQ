@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Navbar,
   NavbarBrand,
@@ -14,6 +14,15 @@ import {
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   return (
     <Navbar color="dark" dark expand="md">
       <div className="container">
@@ -42,14 +51,19 @@ const NavBar = () => {
               </DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
-          <NavItem className="ml-auto">
-            <Button tag={Link} to="/login" color="primary" className="mr-3">
-              Login
-            </Button>
-            <Button tag={Link} to="/logout" color="secondary" >
-              Logout
-            </Button>
-          </NavItem>
+          {isLoggedIn ? (
+            <NavItem className="ml-auto">
+              <Button tag={Link} to="/logout" color="secondary">
+                Logout
+              </Button>
+            </NavItem>
+          ) : (
+            <NavItem className="ml-auto">
+              <Button tag={Link} to="/login" color="primary" className="mr-3">
+                Login
+              </Button>
+            </NavItem>
+          )}
         </Nav>
       </div>
     </Navbar>

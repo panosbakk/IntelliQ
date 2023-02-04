@@ -43,9 +43,7 @@ const Login = () => {
   return (
     <Container className="d-flex flex-column align-items-center">
       <h2>Login Page</h2>
-      <Row>
-        {error && <p className="text-danger">{error}</p>}
-      </Row>
+      <Row>{error && <p className="text-danger">{error}</p>}</Row>
       <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Label for="username">Username</Label>
