@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import StatisticsComponent from "./StatisticsComponent";
 import { Card, CardHeader, Collapse } from "reactstrap";
-import { NotFound } from "./NotFound";
+import { NotAuthorized } from "./NotAuthorized";
 
 export function StatisticsListPage() {
   const { id } = useParams();
@@ -36,7 +36,7 @@ export function StatisticsListPage() {
   };
 
   if (!isLoggedIn) {
-    return <NotFound />;
+    return <NotAuthorized />;
   }
 
   return questionnaireData.questions ? (

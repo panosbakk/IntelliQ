@@ -22,16 +22,15 @@ const Login = () => {
       const response = await fetch("http://localhost:9103/intelliq_api/login", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: JSON.stringify({ username, password }),
+        body: `username=${username}&password=${password}`,
       });
 
       if (!response.ok) {
         const data = await response.json();
         throw new Error(data.message || "Incorrect username or password");
       }
-
       const data = await response.json();
       localStorage.setItem("token", data.token);
       window.location.href = "/";
@@ -66,7 +65,11 @@ const Login = () => {
           />
         </FormGroup>
         <FormGroup className="d-flex justify-content-end">
-          <Button type="submit" color="primary">
+          <Button
+            type="submit"
+            color="primary"
+            disabled={!username || !password}
+          >
             Login
           </Button>
         </FormGroup>
