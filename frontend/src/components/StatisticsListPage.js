@@ -4,6 +4,24 @@ import StatisticsComponent from "./StatisticsComponent";
 import { Card, CardHeader, Collapse } from "reactstrap";
 import { NotAuthorized } from "./NotAuthorized";
 
+//Checks if the localStorage token is the one sent by the backend, or if it has been modified
+async function checkLogin() {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(
+    "http://localhost:9103/intelliq_api/check-login",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-observatory-auth": token,
+      },
+    }
+  );
+
+  return response.status === 200;
+}
+
 export function StatisticsListPage() {
   const { id } = useParams();
   const [questionnaireData, setquestionnaireData] = useState([]);
@@ -11,9 +29,11 @@ export function StatisticsListPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      setIsLoggedIn(true);
-    }
+    checkLogin()
+      .then((isLoggedIn) => {
+        setIsLoggedIn(isLoggedIn);
+      })
+      .catch((error) => console.error(error));
   }, []);
 
   useEffect(() => {

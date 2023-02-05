@@ -29,5 +29,6 @@ require("./routes/postQuestionAnswer.js")(app);
 require("./routes/adminRoutes.js")(app);
 require("./routes/loginRoutes.js")(app);
 require("./routes/logoutRoutes.js")(app);
+require("./routes/postCheckLogin.js")(app);
 
 module.exports = app;

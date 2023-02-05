@@ -9,7 +9,7 @@ function auth(req, res, next) {
     req.user = decoded;
     next();
   } catch {
-    res.status(400).send("Access denied. Invalid Token.");
+    res.status(401).send("Access denied. Invalid Token.");
   }
 }
 exports.auth = auth;
