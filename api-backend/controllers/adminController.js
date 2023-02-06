@@ -15,6 +15,23 @@ exports.healthCheck = (req, res) => {
     });
 }
 
+
+exports.resetQuestionnaire = async (req, res) => {
+  const questionnaireID = req.params.questionnaireID;
+
+  try {
+    const result = await Answers.deleteMany({ questionnaireID: questionnaireID });
+    if (result.deletedCount > 0) {
+      res.json({ status: "OK" });
+    } else {
+      res.json({ status: "failed", reason: `No answers found for questionnaireID ${questionnaireID}` });
+    }
+  } catch (error) {
+    res.json({ status: "failed", reason: error.message });
+  }
+};
+
+
 async function resetall(req, res){
     try {
         await Answers.deleteMany({});
