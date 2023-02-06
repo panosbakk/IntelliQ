@@ -29,7 +29,7 @@ program
             method: 'post',
             url: 'http://localhost:9103/intelliq_api/login/' +
                 ((options.username != undefined) ? options.username : '') +
-                ((options.password != undefined) ? options.password : '')
+                ((options.password != undefined) ? '/' + options.password : '')
         }
         axios(config)
             .then(res => {
@@ -110,7 +110,7 @@ program
 program
     .command('questionnaire_upd')
     .option('--source <source>', 'source file')
-    .action(function() {
+    .action(function(options) {
 
         if (options.source == undefined) {
             console.log("Must define the source file using '--source' option")
@@ -209,8 +209,8 @@ program
         let config = {
             method: 'get',
             url: 'http://localhost:9103/intelliq_api/question/' +
-            ((options.questionnaire_ID != undefined) ? options.questionnaire_ID : '') + '/' +
-            ((options.question_ID != undefined) ? options.question_ID : '')
+            ((options.questionnaire_ID != undefined) ? options.questionnaire_ID : '') +
+            ((options.question_ID != undefined) ? '/' + options.question_ID : '')
         }
         axios(config)
             .then(res => {
@@ -252,10 +252,10 @@ program
         let config = {
             method: 'post',
             url: 'http://localhost:9103/intelliq_api/doanswer/' +
-            ((options.questionnaire_ID != undefined) ? options.questionnaire_ID : '') + '/' +
-            ((options.question_ID != undefined) ? options.question_ID : '') + '/' +
-            ((options.session_ID != undefined) ? options.session_ID : '') + '/' +
-            ((options.option_ID != undefined) ? options.option_ID : '')
+            ((options.questionnaire_ID != undefined) ? options.questionnaire_ID : '') + 
+            ((options.question_ID != undefined) ? '/' + options.question_ID : '') + 
+            ((options.session_ID != undefined) ? '/' + options.session_ID : '') + 
+            ((options.option_ID != undefined) ? '/' + options.option_ID : '')
         }
         axios(config)
             .then(res => {
@@ -289,8 +289,8 @@ program
         let config = {
             method: 'get',
             url: 'http://localhost:9103/intelliq_api/getsessionanswers/' +
-            ((options.questionnaire_ID != undefined) ? options.questionnaire_ID : '') + '/' +
-            ((options.session_ID != undefined) ? options.session_ID : '')
+            ((options.questionnaire_ID != undefined) ? options.questionnaire_ID : '') + 
+            ((options.session_ID != undefined) ? '/' + options.session_ID : '')
         }
         axios(config)
             .then(res => {
@@ -323,8 +323,8 @@ program
         let config = {
             method: 'get',
             url: 'http://localhost:9103/intelliq_api/getquestionanswers/' +
-            ((options.questionnaire_ID != undefined) ? options.questionnaire_ID : '') + '/' +
-            ((options.question_ID != undefined) ? options.question_ID : '')
+            ((options.questionnaire_ID != undefined) ? options.questionnaire_ID : '') + 
+            ((options.question_ID != undefined) ? '/' + options.question_ID : '')
         }
         axios(config)
             .then(res => {
