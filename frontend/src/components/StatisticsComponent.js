@@ -33,17 +33,19 @@ const StatisticsComponent = ({ questionnaireID, qID }) => {
       const ctx = document.getElementById(`chart-${qID}`).getContext("2d");
       setChartCreated(true);
       const answerCount = {};
-      answerData.answers.forEach((answer) => {
-        if (answerCount[answer.ans]) {
-          answerCount[answer.ans]++;
-        } else {
-          answerCount[answer.ans] = 1;
-        }
-      });
+      if (answerData.answers) {
+        answerData.answers.forEach((answer) => {
+          if (answerCount[answer.ans]) {
+            answerCount[answer.ans]++;
+          } else {
+            answerCount[answer.ans] = 1;
+          }
+        });
+      }
       const chartData = questionData.options.map((option) => {
         return {
           label: option.opttxt,
-          data: answerCount[option.optID],
+          data: answerCount[option.optID] || 0,
         };
       });
       new Chart(ctx, {
