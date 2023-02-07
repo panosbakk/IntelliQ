@@ -61,7 +61,7 @@ The term 'smart' highlights that the questionnaire is dynamic. The questions may
 
 In the project directory, you can run:
 
-### `npm install-all`
+### `npm run install-all`
 
 Installs all, frontend and api-backend, dependencies needed to run the application.
 

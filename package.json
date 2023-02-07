@@ -1,6 +1,8 @@
 {
     "scripts": {
-    "install-all": "npm install && cd frontend && npm install && cd ../api-backend && npm install cd ../cli && npm install",
+    "install-all": "npm install && cd frontend && npm install && cd ../api-backend && npm install && cd ../cli && npm install",
     "start": "concurrently \"cd frontend && npm start\" \"cd api-backend && npm start\""
+},    "dependencies": {
+    "concurrently": "^7.6.0"
 }
 }
