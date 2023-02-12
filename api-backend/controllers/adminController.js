@@ -22,13 +22,30 @@ exports.healthCheck = (req, res) => {
 exports.uploadQuestionnaire = (req, res) => {
   try {
     const questionnaireData = JSON.parse(req.file.buffer.toString());
+    const { questionnaireID, questionnaireTitle, keywords, questions } = questionnaireData;
+    if (!questionnaireID || !questionnaireTitle || !keywords || !questions) {
+      return res.status(400).send({ message: "Invalid questionnaire format." });
+    }
+    for (let i = 0; i < questions.length; i++) {
+      const { qID, qtext, required, type, options } = questions[i];
+      if (!qID || !qtext || !required || !type || !options) {
+        return res.status(400).send({ message: "Invalid questionnaire format." });
+      }
+      for (let j = 0; j < options.length; j++) {
+        const { optID, opttxt, nextqID } = options[j];
+        if (!optID || !opttxt || !nextqID) {
+          return res.status(400).send({ message: "Invalid questionnaire format." });
+        }
+      }
+    }
     const questionnaire = new Questionnaire(questionnaireData);
     questionnaire.save();
     res.status(200).send({ message: "Questionnaire uploaded successfully." });
   } catch (error) {
     res.status(400).send({ message: "Error uploading questionnaire." });
   }
-}
+};
+
 
 
 exports.resetQuestionnaire = async (req, res) => {
