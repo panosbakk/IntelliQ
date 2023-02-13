@@ -12,7 +12,7 @@ export function SurveyListPage() {
       .catch((error) => console.error(error));
   }, []);
 
-  return (
+  return count !== 0 ? (
     <>
       <h1>Survey List Page</h1>
       <Container>
@@ -24,6 +24,11 @@ export function SurveyListPage() {
           </Row>
         ))}
       </Container>
+    </>
+  ) : (
+    <>
+      <h1>Survey List Page</h1>
+      <h2>No questionnaires found!</h2>
     </>
   );
 }
