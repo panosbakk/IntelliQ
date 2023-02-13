@@ -279,7 +279,7 @@ program
 
                     let config = {
                         method: 'post',
-                        url: 'http://localhost:9103/intelliq_api/resetq/' +
+                        url: 'http://localhost:9103/intelliq_api/admin/resetq/' +
                         ((options.questionnaire_ID != undefined) ? optionsquestionnaire_ID : ''),
                         headers: {
                             'X-OBSERVATORY-AUTH': data
