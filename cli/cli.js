@@ -230,7 +230,7 @@ program
 
                     let config = {
                         method: 'post',
-                        url: 'http://localhost:9103/intelliq_api/admin/questionnaire_udp',
+                        url: 'http://localhost:9103/intelliq_api/admin/questionnaire_upd',
                         headers: {
                             'X-OBSERVATORY-AUTH': data
                           }
