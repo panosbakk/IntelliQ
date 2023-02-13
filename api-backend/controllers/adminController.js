@@ -12,9 +12,9 @@ exports.healthCheck = (req, res) => {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }).then(() => {
-    res.send({ status: "OK" })
+    res.send({ status: "OK", dbconnection: db })
   }).catch(err => {
-    console.log('Could not connect to the database.', err);
+    res.send({status: "failed", dbconnection: db})
     process.exit();
   });
 }
