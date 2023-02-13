@@ -25,86 +25,181 @@ program
             return
         }
 
-        let config = {
-            method: 'post',
-            url: 'http://localhost:9103/intelliq_api/login/' +
-                ((options.username != undefined) ? options.username : '') +
-                ((options.password != undefined) ? '/' + options.password : '')
-        }
-        axios(config)
-            .then(res => {
-                console.log(res.data)
-            })
-            .catch(err => {
-                console.log("Status code: " + err.response.status)
-                if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
-                    console.log(err.response.data)
-                if (err.response.status == 404)
-                    console.log("Page Not Found")
-            })
+        fs.access('softeng2228.token', fs.F_OK, (err1) => {
+            //File does not exist - New user can log in
+            if (err1) {
+                if(err1.code === 'ENOENT'){
+                    let config = {
+                        method: 'post',
+                        url: 'http://localhost:9103/intelliq_api/login/' +
+                            ((options.username != undefined) ? options.username : '') +
+                            ((options.password != undefined) ? '/' + options.password : ''),
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    }
+            
+                    axios(config)
+                        .then(res => {
+                            //Write token in appropriate file
+                            fs.writeFile('softeng2228.token', res.data.token, err2 =>{
+                                //Error while writing in file
+                                if (err2)
+                                    throw err2;
+                                console.log("User successfully logged in.")
+                            })
+                        })
+
+                        .catch(err => {
+                            console.log("Status code: " + err.response.status)
+                            if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
+                                console.log(err.response.data)
+                            if (err.response.status == 404)
+                                console.log("Page Not Found")
+                        })
+                }
+                else
+                    throw err1
+            }
+            //File already exists - New user cannot log in
+            else{
+                console.log("Error: User already logged in.")
+            }
+        })
     })
 
 program
     .command('logout')
     .action(function(options) {
 
-        let config = {
-            method: 'post',
-            url: 'http://localhost:9103/intelliq_api/logout'
-        }
-        axios(config)
-            .then(res => {
-                console.log("Status code 200: OK")
-            })
-            .catch(err => {
-                console.log("Status code: " + err.response.status)
-                if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
-                    console.log(err.response.data)
-                if (err.response.status == 404)
-                    console.log("Page Not Found")
-            })
+        fs.access('softeng2228.token', fs.F_OK, (err1) => {
+            //File does not exist - User canNOT log out
+            if (err1) {
+                if (err1.code === 'ENOENT') { 
+                    console.log("Error: No user is currently logged in.")
+                    return
+                }
+                //Another error has occured
+                else
+                    throw err1;
+            }
+            else {
+                fs.readFile('softeng2228.token', 'utf8', (err2, data) => {
+                    if (err2)
+                        throw err2
+                        
+                    let config = {
+                        method: 'post',
+                        url: 'http://localhost:9103/intelliq_api/logout',
+                        headers: {
+                            'X-OBSERVATORY-AUTH': data
+                          }
+                    }
+                    axios(config)
+                        .then(res => {
+                           //Erase file
+                            fs.unlink('softeng2228.token', (err3) => {
+                                if (err3)
+                                    throw err3;
+                                console.log('User successfully logged out.');
+                            })  
+                        })
+                        .catch(err => {
+                            console.log("Status code: " + err.response.status)
+                            if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
+                                console.log(err.response.data)
+                            if (err.response.status == 404)
+                                console.log("Page Not Found")
+                        })
+                })
+            }  
+        })
     })
 
 program
     .command('healthcheck')
     .action(function() {
 
-        let config = {
-            method: 'get',
-            url: 'http://localhost:9103/intelliq_api/admin/healthcheck'
-        }
-        axios(config)
-            .then(res => {
-                console.log(res.data)
-            })
-            .catch(err => {
-                console.log("Status code: " + err.response.status)
-                if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
-                    console.log(err.response.data)
-                if (err.response.status == 404)
-                    console.log("Page Not Found")
-            })
+        fs.access('softeng2228.token', fs.F_OK, (err1) => {
+            //File does not exist
+            if (err1) {
+                if (err1.code === 'ENOENT') { 
+                    console.log("Error: Access denied. You should log in in order to access this page.")
+                    return
+                }
+                //Another error has occured
+                else
+                    throw err1;
+            }
+            else {
+                fs.readFile('softeng2228.token', 'utf8', (err2, data) => {
+                    if (err2)
+                        throw err2
+
+                    let config = {
+                        method: 'get',
+                        url: 'http://localhost:9103/intelliq_api/admin/healthcheck',
+                        headers: {
+                            'X-OBSERVATORY-AUTH': data
+                          }
+                    }
+                    axios(config)
+                        .then(res => {
+                            console.log(res.data)
+                        })
+                        .catch(err => {
+                            console.log("Status code: " + err.response.status)
+                            if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
+                                console.log(err.response.data)
+                            if (err.response.status == 404)
+                                console.log("Page Not Found")
+                        })
+                })
+            }  
+        })
     })
 
 program
     .command('resetall')
     .action(function() {
 
-        let config = {
-            method: 'post',
-            url: 'http://localhost:9103/intelliq_api/admin/resetall'
-        }
-        axios(config)
-            .then(res => {
-                console.log(res.data)
-            })
-            .catch(err => {
-                console.log("Status code: " + err.response.status)
-                if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
-                    console.log(err.response.data)
-                if (err.response.status == 404)
-                    console.log("Page Not Found")
-            })
+        fs.access('softeng2228.token', fs.F_OK, (err1) => {
+            //File does not exist
+            if (err1) {
+                if (err1.code === 'ENOENT') { 
+                    console.log("Error: Access denied. You should log in in order to access this page.")
+                    return
+                }
+                //Another error has occured
+                else
+                    throw err1;
+            }
+            else {
+                fs.readFile('softeng2228.token', 'utf8', (err2, data) => {
+                    if (err2)
+                        throw err2
+
+                    let config = {
+                        method: 'post',
+                        url: 'http://localhost:9103/intelliq_api/admin/resetall',
+                        headers: {
+                            'X-OBSERVATORY-AUTH': data
+                          }
+                    }
+                    axios(config)
+                        .then(res => {
+                            console.log(res.data)
+                        })
+                        .catch(err => {
+                            console.log("Status code: " + err.response.status)
+                            if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
+                                console.log(err.response.data)
+                            if (err.response.status == 404)
+                                console.log("Page Not Found")
+                        })
+                })
+            }  
+        })
     })
 
 program
@@ -117,21 +212,43 @@ program
             return
         }
 
-        let config = {
-            method: 'post',
-            url: 'http://localhost:9103/intelliq_api/admin/questionnaire_udp'
-        }
-        axios(config)
-            .then(res => {
-                console.log(res.data)
-            })
-            .catch(err => {
-                console.log("Status code: " + err.response.status)
-                if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
-                    console.log(err.response.data)
-                if (err.response.status == 404)
-                    console.log("Page Not Found")
-            })
+        fs.access('softeng2228.token', fs.F_OK, (err1) => {
+            //File does not exist
+            if (err1) {
+                if (err1.code === 'ENOENT') { 
+                    console.log("Error: Access denied. You should log in in order to access this page.")
+                    return
+                }
+                //Another error has occured
+                else
+                    throw err1;
+            }
+            else {
+                fs.readFile('softeng2228.token', 'utf8', (err2, data) => {
+                    if (err2)
+                        throw err2
+
+                    let config = {
+                        method: 'post',
+                        url: 'http://localhost:9103/intelliq_api/admin/questionnaire_upd',
+                        headers: {
+                            'X-OBSERVATORY-AUTH': data
+                          }
+                    }
+                    axios(config)
+                        .then(res => {
+                            console.log(res.data)
+                        })
+                        .catch(err => {
+                            console.log("Status code: " + err.response.status)
+                            if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
+                                console.log(err.response.data)
+                            if (err.response.status == 404)
+                                console.log("Page Not Found")
+                        })
+                })
+            }  
+        })
     })
 
 program
@@ -144,22 +261,44 @@ program
             return
         }
 
-        let config = {
-            method: 'post',
-            url: 'http://localhost:9103/intelliq_api/resetq/' +
-                ((options.questionnaire_ID != undefined) ? optionsquestionnaire_ID : '')  
-        }
-        axios(config)
-            .then(res => {
-                console.log(res.data)
-            })
-            .catch(err => {
-                console.log("Status code: " + err.response.status)
-                if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
-                    console.log(err.response.data)
-                if (err.response.status == 404)
-                    console.log("Page Not Found")
-            })
+        fs.access('softeng2228.token', fs.F_OK, (err1) => {
+            //File does not exist
+            if (err1) {
+                if (err1.code === 'ENOENT') { 
+                    console.log("Error: Access denied. You should log in in order to access this page.")
+                    return
+                }
+                //Another error has occured
+                else
+                    throw err1;
+            }
+            else {
+                fs.readFile('softeng2228.token', 'utf8', (err2, data) => {
+                    if (err2)
+                        throw err2
+
+                    let config = {
+                        method: 'post',
+                        url: 'http://localhost:9103/intelliq_api/admin/resetq/' +
+                        ((options.questionnaire_ID != undefined) ? optionsquestionnaire_ID : ''),
+                        headers: {
+                            'X-OBSERVATORY-AUTH': data
+                          }
+                    }
+                    axios(config)
+                        .then(res => {
+                            console.log(res.data)
+                        })
+                        .catch(err => {
+                            console.log("Status code: " + err.response.status)
+                            if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
+                                console.log(err.response.data)
+                            if (err.response.status == 404)
+                                console.log("Page Not Found")
+                        })
+                })
+            }  
+        })
     })
 
 program
@@ -189,7 +328,6 @@ program
                     console.log("Page Not Found")
             })
     })
-
 
 program
     .command('question')
@@ -225,7 +363,7 @@ program
             })
     })
 
-program
+    program
     .command('doanswer')
     .option('--questionnaire_ID <questionnaire_ID>', 'questionnaire ID')
     .option('--question_ID <question_ID>', 'question ID')
@@ -270,8 +408,7 @@ program
             })
     })
 
-
-program
+ program
     .command('getsessionanswers')
     .option('--questionnaire_ID <questionnaire_ID>', 'questionnaire ID')
     .option('--session_ID <session_ID>', 'session ID')
@@ -305,7 +442,7 @@ program
             })
     })
 
-program
+program    
     .command('getquestionanswers')
     .option('--questionnaire_ID <questionnaire_ID>', 'questionnaire ID')
     .option('--question_ID <question_ID>', 'question ID')
@@ -338,68 +475,5 @@ program
                     console.log("Page Not Found")
             })
     })
-
-/*program
-    .command('usermod')
-    .option('--username <username>', 'username')
-    .option('--password <password>', 'password')
-    .action(function(options) {
-
-        if (options.username == undefined || options.password == undefined) {
-            if (options.username == undefined){
-                console.log("Must define username using '--username' option")
-            }
-            if (options.password == undefined){
-                console.log("Must define password using '--password' option")
-            }
-            return
-        }
-
-        let config = {
-            method: 'post',
-            url: 'http://localhost:9103/intelliq_api/admin/usermod/' +
-                ((options.username != undefined) ? options.username : '') +
-                ((options.password != undefined) ? '/' + options.password : '')
-        }
-        axios(config)
-            .then(res => {
-                console.log(res.data)
-            })
-            .catch(err => {
-                console.log("Status code: " + err.response.status)
-                if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
-                    console.log(err.response.data)
-                if (err.response.status == 404)
-                    console.log("Page Not Found")
-            })
-    })*/
-
-/*program
-    .command('users')
-    .option('--username <username>', 'username')
-    .action(function(options) {
-
-        if (options.username == undefined){
-            console.log("Must define username using '--username' option")
-            return
-        }
-
-        let config = {
-            method: 'get',
-            url: 'http://localhost:9103/intelliq_api/admin/users/' +
-                ((options.username != undefined) ? options.username : '')
-        }
-        axios(config)
-            .then(res => {
-                console.log(res.data)
-            })
-            .catch(err => {
-                console.log("Status code: " + err.response.status)
-                if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
-                    console.log(err.response.data)
-                if (err.response.status == 404)
-                    console.log("Page Not Found")
-            })
-    })*/
 
 program.parse(process.argv);
