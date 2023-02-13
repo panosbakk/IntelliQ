@@ -14,7 +14,7 @@ exports.healthCheck = (req, res) => {
   }).then(() => {
     res.send({ status: "OK", dbconnection: db })
   }).catch(err => {
-    res.send({status: "failed", dbconnection: db})
+    res.send({ status: "failed", dbconnection: db })
     process.exit();
   });
 }
@@ -57,16 +57,16 @@ exports.resetQuestionnaire = async (req, res) => {
     if (result.deletedCount > 0) {
       res.json({ status: "OK" });
     } else {
-      res.json({ status: "failed", reason: `No answers found for questionnaireID ${ questionnaireID }` });
-  }
+      res.json({ status: "failed", reason: `No answers found for questionnaireID ${questionnaireID}` });
+    }
   } catch (error) {
-  res.json({ status: "failed", reason: error.message });
-}
-  };
+    res.json({ status: "failed", reason: error.message });
+  }
+};
 async function resetall(req, res) {
+  Questionnaire.collection.dropIndexes();
+  Answers.collection.dropIndexes();
   try {
-    Questionnaire.collection.dropIndexes();
-    Answers.collection.dropIndexes();
     await Questionnaire.deleteMany({});
     await Answers.deleteMany({});
     res.json({ message: "Answers collection has been successfully cleared." });
