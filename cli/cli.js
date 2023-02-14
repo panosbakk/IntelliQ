@@ -234,23 +234,37 @@ program
                     if (err2)
                         throw err2
                     let form = new FormData() 
-                    form.append("file", fs.createReadStream(options.source))
-                    let all_headers =  form.getHeaders()
-                    all_headers['X-OBSERVATORY-AUTH'] = data
-                    all_headers['contentType'] = "multipart/form-data"
-                    let config = {
-                        method: 'post',
-                        url: 'http://localhost:9103/intelliq_api/admin/questionnaire_upd', 
-                        headers: all_headers,
-                        data: form
-                    }
-                    axios(config)
-                        .then(res => {
-                            console.log(res.data)
-                        })
-                        .catch(err => {
-                            console.log("Status code: " + err.response.status + " - " + err.response.statusText)
-                        })
+                    fs.access(options.source, fs.F_OK, (err1) => {
+                        //File does not exist
+                        if (err1) {
+                            if(err1.code === 'ENOENT'){
+                                console.log("Error: No such file.")
+                                return
+                            }
+                            else
+                                throw err1;
+                        }
+                        else{
+                            form.append("file", fs.createReadStream(options.source))
+                            let all_headers =  form.getHeaders()
+                            all_headers['X-OBSERVATORY-AUTH'] = data
+                            all_headers['contentType'] = "multipart/form-data"
+                            let config = {
+                                method: 'post',
+                                url: 'http://localhost:9103/intelliq_api/admin/questionnaire_upd', 
+                                headers: all_headers,
+                                data: form
+                            }
+                            axios(config)
+                                .then(res => {
+                                    console.log(res.data)
+                                })
+                                .catch(err => {
+                                    console.log("Status code: " + err.response.status + " - " + err.response.statusText)
+                                })
+                        }
+                    })
+
                 })
             }  
         })

@@ -16,12 +16,12 @@
     },
     {
     "optID": "P01A2",
-    "opttxt": "Πολύ ευχαριστημένος",
+    "opttxt": "Συγκινημένος",
     "nextqID": "Q01"
     },
     {
     "optID": "P01A3",
-    "opttxt": "Συγκινημένος",
+    "opttxt": "Eυχαριστημένος",
     "nextqID": "Q01"
     },
     {
@@ -191,7 +191,7 @@
     {
     "optID": "Q08A2",
     "opttxt": "Οχι",
-    "nextqID": "-"
+    "nextqID": "Q10"
     }
     ]
     },
@@ -204,11 +204,29 @@
     {
     "optID": "Q09A1",
     "opttxt": "Επιεικής",
-    "nextqID": "-"
+    "nextqID": "Q10"
     },
     {
     "optID": "Q09A2",
     "opttxt": "Αυστηρή",
+    "nextqID": "Q10"
+    }
+    ]
+    },
+    {
+    "qID": "Q10",
+    "qtext": "Είναι αυτό το πιο ενδιαφέρον ερωτηματολόγιο που έχετε κάνει έως τώρα;",
+    "required": "TRUE",
+    "type": "question",
+    "options": [
+    {
+    "optID": "Q10A1",
+    "opttxt": "Προφανώς!",
+    "nextqID": "-"
+    },
+    {
+    "optID": "Q10A2",
+    "opttxt": "Ναι",
     "nextqID": "-"
     }
     ]
