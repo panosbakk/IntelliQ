@@ -119,22 +119,6 @@ program
 program
     .command('healthcheck')
     .action(function () {
-
-        let config = {
-            method: 'get',
-            url: 'http://localhost:9103/intelliq_api/admin/healthcheck'
-        }
-        axios(config)
-            .then(res => {
-                console.log(res.data)
-            })
-            .catch(err => {
-                console.log("Status code: " + err.response.status)
-                if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
-                    console.log(err.response.data)
-                if (err.response.status == 404)
-                    console.log("Page Not Found")
-            })
         fs.access('softeng2228.token', fs.F_OK, (err1) => {
             //File does not exist
             if (err1) {
