@@ -4,9 +4,8 @@ const program = require('commander');
 const axios = require('axios').default;
 const spawn = require('child_process').spawn;
 const qs = require('querystring');
-var FormData = require('form-data');
 var fs = require('fs');
-
+var FormData = require('form-data');
 
 program.version('1.0.0');
 
@@ -75,10 +74,10 @@ program
 
 program
     .command('logout')
-    .action(function(options) {
+    .action(function() {
 
         fs.access('softeng2228.token', fs.F_OK, (err1) => {
-            //File does not exist - User canNOT log out
+            //File does not exist - User cannot log out
             if (err1) {
                 if (err1.code === 'ENOENT') { 
                     console.log("Error: No user is currently logged in.")
@@ -153,11 +152,11 @@ program
                             console.log(res.data)
                         })
                         .catch(err => {
-                            console.log("Status code: " + err.response.status)
-                            if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
-                                console.log(err.response.data)
-                            if (err.response.status == 404)
-                                console.log("Page Not Found")
+                            let result = `{ 
+  status: 'failed',
+  dbconnection: 'mongodb+srv://el19600:c2mot3n5@intelliq.25mg5s4.mongodb.net/?retryWrites=true&w=majority'
+}`
+                            console.log(result)
                         })
                 })
             }  
