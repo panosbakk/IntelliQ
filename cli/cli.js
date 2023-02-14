@@ -3,9 +3,9 @@
 const program = require('commander');
 const axios = require('axios').default;
 const spawn = require('child_process').spawn;
-var FormData = require('form-data');
+const qs = require('querystring');
 var fs = require('fs');
-
+var FormData = require('form-data');
 
 program.version('1.0.0');
 
@@ -31,12 +31,14 @@ program
                 if(err1.code === 'ENOENT'){
                     let config = {
                         method: 'post',
-                        url: 'http://localhost:9103/intelliq_api/login/' +
-                            ((options.username != undefined) ? options.username : '') +
-                            ((options.password != undefined) ? '/' + options.password : ''),
+                        url: 'http://localhost:9103/intelliq_api/login',
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
-                        }
+                        },
+                        data: qs.stringify({
+                            username: options.username,
+                            password: options.password
+                          })
                     }
             
                     axios(config)
@@ -45,7 +47,7 @@ program
                             fs.writeFile('softeng2228.token', res.data.token, err2 =>{
                                 //Error while writing in file
                                 if (err2)
-                                    throw err2;
+                                    throw err2;   
                                 console.log("User successfully logged in.")
                             })
                         })
@@ -58,8 +60,10 @@ program
                                 console.log("Page Not Found")
                         })
                 }
-                else
+                else {
+                    console.log("Something went wrong.")
                     throw err1
+                }
             }
             //File already exists - New user cannot log in
             else{
@@ -70,10 +74,10 @@ program
 
 program
     .command('logout')
-    .action(function(options) {
+    .action(function() {
 
         fs.access('softeng2228.token', fs.F_OK, (err1) => {
-            //File does not exist - User canNOT log out
+            //File does not exist - User cannot log out
             if (err1) {
                 if (err1.code === 'ENOENT') { 
                     console.log("Error: No user is currently logged in.")
@@ -148,11 +152,11 @@ program
                             console.log(res.data)
                         })
                         .catch(err => {
-                            console.log("Status code: " + err.response.status)
-                            if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
-                                console.log(err.response.data)
-                            if (err.response.status == 404)
-                                console.log("Page Not Found")
+                            let result = `{ 
+  status: 'failed',
+  dbconnection: 'mongodb+srv://el19600:c2mot3n5@intelliq.25mg5s4.mongodb.net/?retryWrites=true&w=majority'
+}`
+                            console.log(result)
                         })
                 })
             }  
@@ -220,31 +224,32 @@ program
                     return
                 }
                 //Another error has occured
-                else
+                else { 
+                    console.log("Error! Something went wrong:" + err1.code + " - " + err1.message)
                     throw err1;
+                }
             }
             else {
                 fs.readFile('softeng2228.token', 'utf8', (err2, data) => {
                     if (err2)
                         throw err2
-
+                    let form = new FormData() 
+                    form.append("file", fs.createReadStream(options.source))
+                    let all_headers =  form.getHeaders()
+                    all_headers['X-OBSERVATORY-AUTH'] = data
+                    all_headers['contentType'] = "multipart/form-data"
                     let config = {
                         method: 'post',
-                        url: 'http://localhost:9103/intelliq_api/admin/questionnaire_upd',
-                        headers: {
-                            'X-OBSERVATORY-AUTH': data
-                          }
+                        url: 'http://localhost:9103/intelliq_api/admin/questionnaire_upd', 
+                        headers: all_headers,
+                        data: form
                     }
                     axios(config)
                         .then(res => {
                             console.log(res.data)
                         })
                         .catch(err => {
-                            console.log("Status code: " + err.response.status)
-                            if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
-                                console.log(err.response.data)
-                            if (err.response.status == 404)
-                                console.log("Page Not Found")
+                            console.log("Status code: " + err.response.status + " - " + err.response.statusText)
                         })
                 })
             }  
@@ -280,7 +285,7 @@ program
                     let config = {
                         method: 'post',
                         url: 'http://localhost:9103/intelliq_api/admin/resetq/' +
-                        ((options.questionnaire_ID != undefined) ? optionsquestionnaire_ID : ''),
+                        ((options.questionnaire_ID != undefined) ? options.questionnaire_ID : ''),
                         headers: {
                             'X-OBSERVATORY-AUTH': data
                           }
