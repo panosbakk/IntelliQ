@@ -63,7 +63,7 @@ In the project directory, you can run:
 
 ### `npm run install-all`
 
-Installs all, frontend and api-backend, dependencies needed to run the application.
+Installs all (frontend, api-backend and cli) dependencies needed to run the application.
 
 ### `npm start`
 

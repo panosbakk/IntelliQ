@@ -131,7 +131,7 @@ program
                 else
                     throw err1;
             }
-            else {
+            else {    
                 fs.readFile('softeng2228.token', 'utf8', (err2, data) => {
                     if (err2)
                         throw err2
@@ -148,12 +148,12 @@ program
                             console.log(res.data)
                         })
                         .catch(err => {
-                            console.log("Status code: " + err.response.status)
-                            if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
-                                console.log(err.response.data)
-                            if (err.response.status == 404)
-                                console.log("Page Not Found")
-                        })
+                            if (err.message.includes("ECONNREFUSED")) {
+                              console.log({ status: "failed", dbconnection: db });
+                            } else {
+                              console.log(err);
+                            }
+                          });
                 })
             }  
         })
