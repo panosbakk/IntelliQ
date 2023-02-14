@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import * as Survey from "survey-react";
 import "survey-react/survey.css";
 
+// randon 4-character session id generator
 function generateRandomString() {
   let result = "";
   const characters =
@@ -70,7 +71,7 @@ class SurveyComponent extends Component {
           let nextQuestion = json.questions.find(
             (q) => q.qID === option.nextqID
           );
-          if (nextQuestion) {
+          if (nextQuestion && question.required === "TRUE") {
             nextQuestion.visibleIf = `{${question.qID}} != ""`;
           }
         });
