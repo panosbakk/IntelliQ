@@ -57,6 +57,9 @@ The term 'smart' highlights that the questionnaire is dynamic. The questions may
    h. [Bcrypt](https://www.npmjs.com/package/bcrypt)
    `npm i bcrypt@latest`
 
+   i. [multer](https://www.npmjs.com/package/multer)
+   `npm i multer@latest`
+
 ## Available Scripts
 
 In the project directory, you can run:
