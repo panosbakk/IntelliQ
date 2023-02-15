@@ -12,11 +12,11 @@ To specify a parameter, use the --param option, followed by the value you want t
 
 If you are using Linux or WSL, and you want to be able to run the CLI tool even when you are not in the cli/ directory, using the command `se2228`, instead of `node cli.js`, follow these additional steps:
 
-    a. Open the `script_launcher.sh` file in a text editor.
+a. Open the `script_launcher.sh` file in a text editor.
 
-    b. Replace the `$EVN_CLI` variable with the absolute path to your project directory.
+b. Replace the `$EVN_CLI` variable with the absolute path to your project directory.
 
-    c. Save and close the file.
+c. Save and close the file.
 
-    d. Run the following command to install the CLI tool: `./install_cli.sh`
+d. Run the following command to install the CLI tool: `./install_cli.sh`
 
