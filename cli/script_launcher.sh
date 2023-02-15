@@ -1,0 +1,1 @@
+node $CLI_PATH/cli/cli.js "$@"

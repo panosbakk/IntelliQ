@@ -72,14 +72,14 @@ In the project directory, you can run:
 
 ### `npm run install-all`
 
-Installs all (frontend, api-backend and cli) dependencies needed to run the application.
+It installs all (frontend, api-backend and cli) dependencies needed to run the application.
 
 ### `npm start`
 
-Runs the app in the development mode.\
+It runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-Starts the backend server.\
+It starts the backend server.\
 API is running on port 9103.
 
-The page will reload when you make changes.\
+The page will reload every time you make changes.\
 You may also see any lint errors in the console.
