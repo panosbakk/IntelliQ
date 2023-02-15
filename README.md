@@ -1,6 +1,7 @@
 # Software Engineering Project 2022-2023
 
-##Group: softeng2022-28
+### Group Name: Softeng2022-28
+
 
 |        Surname      |    Name      |    NTUA_ID      |
 |---------------------|--------------|-----------------|
