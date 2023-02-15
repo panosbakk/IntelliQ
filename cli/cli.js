@@ -323,6 +323,7 @@ program
 program
     .command('questionnaire')
     .option('--questionnaire_ID <questionnaire_ID>', 'questionnaire ID')
+    .option('--format <format>', 'format')
     .action(function(options) {
 
         if (options.questionnaire_ID == undefined){
@@ -333,7 +334,8 @@ program
         let config = {
             method: 'get',
             url: 'http://localhost:9103/intelliq_api/questionnaire/' +
-            ((options.questionnaire_ID != undefined) ? options.questionnaire_ID : '')
+            ((options.questionnaire_ID != undefined) ? options.questionnaire_ID : '') +
+            '?format=' + (options.format || 'json')
         }
         axios(config)
             .then(res => {
@@ -352,6 +354,7 @@ program
     .command('question')
     .option('--questionnaire_ID <questionnaire_ID>', 'questionnaire ID')
     .option('--question_ID <question_ID>', 'question ID')
+    .option('--format <format>', 'format')
     .action(function(options) {
         if (options.questionnaire_ID == undefined || options.question_ID == undefined) {
             if (options.questionnaire_ID == undefined){
@@ -367,7 +370,8 @@ program
             method: 'get',
             url: 'http://localhost:9103/intelliq_api/question/' +
             ((options.questionnaire_ID != undefined) ? options.questionnaire_ID : '') +
-            ((options.question_ID != undefined) ? '/' + options.question_ID : '')
+            ((options.question_ID != undefined) ? '/' + options.question_ID : '') + 
+            '?format=' + (options.format || 'json')
         }
         axios(config)
             .then(res => {
@@ -431,6 +435,7 @@ program
     .command('getsessionanswers')
     .option('--questionnaire_ID <questionnaire_ID>', 'questionnaire ID')
     .option('--session_ID <session_ID>', 'session ID')
+    .option('--format <format>', 'format')
     .action(function(options) {
         if (options.questionnaire_ID == undefined || options.session_ID == undefined) {
             if (options.questionnaire_ID == undefined){
@@ -446,7 +451,8 @@ program
             method: 'get',
             url: 'http://localhost:9103/intelliq_api/getsessionanswers/' +
             ((options.questionnaire_ID != undefined) ? options.questionnaire_ID : '') + 
-            ((options.session_ID != undefined) ? '/' + options.session_ID : '')
+            ((options.session_ID != undefined) ? '/' + options.session_ID : '') +
+            '?format=' + (options.format || 'json')
         }
         axios(config)
             .then(res => {
@@ -465,6 +471,7 @@ program
     .command('getquestionanswers')
     .option('--questionnaire_ID <questionnaire_ID>', 'questionnaire ID')
     .option('--question_ID <question_ID>', 'question ID')
+    .option('--format <format>', 'format')
     .action(function(options) {
         if (options.questionnaire_ID == undefined || options.question_ID == undefined) {
             if (options.questionnaire_ID == undefined){
@@ -480,7 +487,8 @@ program
             method: 'get',
             url: 'http://localhost:9103/intelliq_api/getquestionanswers/' +
             ((options.questionnaire_ID != undefined) ? options.questionnaire_ID : '') + 
-            ((options.question_ID != undefined) ? '/' + options.question_ID : '')
+            ((options.question_ID != undefined) ? '/' + options.question_ID : '') +
+            '?format=' + (options.format || 'json')
         }
         axios(config)
             .then(res => {
