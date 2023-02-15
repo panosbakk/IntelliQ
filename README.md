@@ -3,7 +3,7 @@
 ### Group Name: Softeng2022-28
 
 
-|        Surname      |    Name      |    NTUA_ID      |
+| Surname             | Name         |    NTUA_ID      |
 |---------------------|--------------|-----------------|
 | Batsari             | Vasiliki     |    03118046     |
 | Tournaris           | Lefteris     |    03118845     |
