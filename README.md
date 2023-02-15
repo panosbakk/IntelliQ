@@ -1,8 +1,13 @@
 # Software Engineering Project 2022-2023
 
-Group: softeng2022-28
+##Group: softeng2022-28
 
-Members: el18046, el18845, el19600
+|        Surname      |    Name      |    NTUA_ID      |
+|---------------------|--------------|-----------------|
+| Batsari             | Vasiliki     |    03118046     |
+| Tournaris           | Lefteris     |    03118845     |
+| Bakaloudis          | Panagiotis   |    03119600     |
+
 
 ### This project aims at the creation of 'smart' questionnaires, which are used for online surveys.
 
