@@ -8,13 +8,10 @@ class SurveyListComponent extends Component {
     this.state = { questionnaire: {} };
   }
   componentDidMount() {
-    const key = this.props.num.toLocaleString("en-US", {
-      minimumIntegerDigits: 3,
-      useGrouping: false,
-    });
+    const questionnaireID = this.props.questionnaireID;
 
     const myRequest = new Request(
-      `http://localhost:9103/intelliq_api/questionnaire/QQ${key}`
+      `http://localhost:9103/intelliq_api/questionnaire/${questionnaireID}`
     );
 
     fetch(myRequest)
@@ -33,11 +30,7 @@ class SurveyListComponent extends Component {
   };
 
   render() {
-    const key = this.props.num.toLocaleString("en-US", {
-      minimumIntegerDigits: 3,
-      useGrouping: false,
-    });
-
+    const questionnaireID = this.props.questionnaireID;
     return this.state.questionnaire &&
       this.state.questionnaire.questionnaireID ? (
       <Card>
@@ -49,13 +42,13 @@ class SurveyListComponent extends Component {
             this.state.questionnaire.questionnaireTitle}
           "
           <div className="text-right">
-            <Link to={`/survey/QQ${key}`}>
+            <Link to={`/survey/${questionnaireID}`}>
               <Button color="primary" style={{ marginRight: "10px" }}>
                 View Questionnaire
               </Button>
             </Link>
             {this.isUserAuthenticated() && (
-              <Link to={`/survey/statistics/QQ${key}`}>
+              <Link to={`/survey/statistics/${questionnaireID}`}>
                 <Button color="primary">View Statistics</Button>
               </Link>
             )}
@@ -65,7 +58,9 @@ class SurveyListComponent extends Component {
     ) : (
       <Card>
         {" "}
-        <h3 className="card-header">Questionnaire QQ{key} not found!</h3>
+        <h3 className="card-header">
+          Questionnaire {questionnaireID} not found!
+        </h3>
       </Card>
     );
   }
