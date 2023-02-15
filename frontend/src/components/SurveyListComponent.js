@@ -22,7 +22,10 @@ class SurveyListComponent extends Component {
       .then((data) => {
         this.setState({ questionnaire: data });
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        this.setState({ questionnaire: null });
+        console.error(error);
+      });
   }
 
   isUserAuthenticated = () => {
@@ -35,7 +38,8 @@ class SurveyListComponent extends Component {
       useGrouping: false,
     });
 
-    return this.state.questionnaire ? (
+    return this.state.questionnaire &&
+      this.state.questionnaire.questionnaireID ? (
       <Card>
         <h3 className="card-header">
           Questionnaire{" "}
@@ -59,7 +63,10 @@ class SurveyListComponent extends Component {
         </h3>
       </Card>
     ) : (
-      <h2>Loading...</h2>
+      <Card>
+        {" "}
+        <h3 className="card-header">Questionnaire QQ{key} not found!</h3>
+      </Card>
     );
   }
 }
