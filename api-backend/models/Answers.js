@@ -10,7 +10,6 @@ const AnswerSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    select: false
   },
 
   answers: [
@@ -18,7 +17,6 @@ const AnswerSchema = new mongoose.Schema({
       qID: {
         type: String,
         required: true,
-        unique: true
       },
 
       ans: {
