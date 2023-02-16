@@ -20,7 +20,7 @@ exports.postQuestionAnswer = async (req, res) => {
     let answer = await Answers.findOneAndUpdate(
       { questionnaireID: questionnaireID, session: session },
       { questionnaireID: questionnaireID, session: session },
-      { upsert: true, new: true }
+      { upsert: true }
     );
 
     const answerIndex = answer.answers.findIndex((ans) => ans.qID === questionID && ans.ans === optionID);
