@@ -39,7 +39,7 @@ exports.postQuestionAnswer = async (req, res) => {
       }
       // Save the answer
       await answer.save();
-      res.sendStatus(204);
+      res.sendStatus(200);
     }
 
 
