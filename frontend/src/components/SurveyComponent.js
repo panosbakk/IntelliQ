@@ -52,87 +52,92 @@ class SurveyComponent extends Component {
   };
 
   jsonModifier(json) {
-    const surveyJson = {
+    let surveyJson = {
       name: json.questionnaireID,
       title: json.questionnaireTitle,
-      pages: [{
-        name: "page1",
-        elements: []
-      }]
+      pages: [
+        {
+          name: "page1",
+          elements: [],
+        },
+      ],
     };
-  
     json.questions.forEach((question) => {
-      let hasOpenString = question.options.some((option) => option.opttxt === "<open string>");
-  
-      // Process questions with open strings
+      let hasOpenString = question.options.some(
+        (option) => option.opttxt === "<open string>"
+      );
       if (hasOpenString) {
+        question.options.forEach((option) => {
+          let nextQuestion = json.questions.find(
+            (q) => q.qID === option.nextqID
+          );
+          if (nextQuestion && question.required === "TRUE") {
+            nextQuestion.visibleIf = `{${question.qID}} != ""`;
+          }
+        });
+
         json.questions.forEach((q) => {
-          question.qtext = question.qtext.replace(`[*${q.qID}]`, `[${q.qtext}]`);
+          question.qtext = question.qtext.replace(
+            `[*${q.qID}]`,
+            `[${q.qtext}]`
+          );
           question.options.forEach((opt) => {
-            question.qtext = question.qtext.replace(`[*${opt.optID}]`, `[${opt.opttxt}]`);
+            question.qtext = question.qtext.replace(
+              `[*${opt.optID}]`,
+              `[${opt.opttxt}]`
+            );
           });
         });
-  
-        let openStringElement = {
+
+        surveyJson.pages[0].elements.push({
           type: "text",
           name: question.qID,
           title: question.qtext,
           isRequired: question.required === "TRUE",
-          visibleIf: question.required === "TRUE" ? `{${question.qID}} != ""` : null
-        };
-  
-        surveyJson.pages[0].elements.push(openStringElement);
-  
-        json.questions.filter(q => q.qID !== question.qID).forEach((nextQuestion) => {
-          let nextQuestionOption = question.options.find(opt => opt.nextqID === nextQuestion.qID);
-          if (nextQuestionOption) {
+          visibleIf: question.visibleIf ? question.visibleIf : null,
+        });
+      } else {
+        let choices = [];
+        question.options.forEach((option) => {
+          choices.push({
+            value: option.optID,
+            text: option.opttxt,
+          });
+          let nextQuestion = json.questions.find(
+            (q) => q.qID === option.nextqID
+          );
+          if (nextQuestion) {
             nextQuestion.visibleIf = nextQuestion.visibleIf
-              ? `${nextQuestion.visibleIf} || {${question.qID}} = "${nextQuestionOption.optID}"`
-              : `{${question.qID}} = "${nextQuestionOption.optID}"`;
+              ? `${nextQuestion.visibleIf} || {${question.qID}} = "${option.optID}"`
+              : `{${question.qID}} = "${option.optID}"`;
           }
         });
-      }
-  
-      // Process questions with multiple choice options
-      else {
-        let choices = question.options.map(option => ({
-          value: option.optID,
-          text: option.opttxt
-        }));
-  
+
         json.questions.forEach((q) => {
-          question.qtext = question.qtext.replace(`[*${q.qID}]`, `[${q.qtext}]`);
+          question.qtext = question.qtext.replace(
+            `[*${q.qID}]`,
+            `[${q.qtext}]`
+          );
           q.options.forEach((opt) => {
-            question.qtext = question.qtext.replace(`[*${opt.optID}]`, `[${opt.opttxt}]`);
+            question.qtext = question.qtext.replace(
+              `[*${opt.optID}]`,
+              `[${opt.opttxt}]`
+            );
           });
         });
-  
-        let multipleChoiceElement = {
+
+        surveyJson.pages[0].elements.push({
           type: "radiogroup",
           name: question.qID,
           title: question.qtext,
           isRequired: question.required === "TRUE",
           choices: choices,
-          visibleIf: null
-        };
-  
-        surveyJson.pages[0].elements.push(multipleChoiceElement);
-  
-        json.questions.filter(q => q.qID !== question.qID).forEach((nextQuestion) => {
-          question.options.forEach((option) => {
-            if (option.nextqID === nextQuestion.qID) {
-              nextQuestion.visibleIf = nextQuestion.visibleIf
-                ? `${nextQuestion.visibleIf} || {${question.qID}} = "${option.optID}"`
-                : `{${question.qID}} = "${option.optID}"`;
-            }
-          });
+          visibleIf: question.visibleIf ? question.visibleIf : null,
         });
       }
     });
-  
     return surveyJson;
   }
-  
 
   render() {
     const json = this.jsonModifier(this.props.json);
