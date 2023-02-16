@@ -62,6 +62,7 @@ exports.resetQuestionnaire = async (req, res) => {
   }
 };
 async function resetall(req, res) {
+  Questionnaire.collection.dropIndexes();
   try {
     await Questionnaire.deleteMany({});
     await Answers.deleteMany({});
