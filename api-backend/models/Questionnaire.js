@@ -4,7 +4,6 @@ const QuestionnaireSchema = new mongoose.Schema({
   questionnaireID: {
     type: String,
     required: true,
-    unique: true,
   },
 
   questionnaireTitle: {
@@ -23,7 +22,6 @@ const QuestionnaireSchema = new mongoose.Schema({
     {
       qID: {
         type: String,
-        unique: true,
       },
 
       qtext: {

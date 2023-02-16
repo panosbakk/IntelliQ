@@ -1,0 +1,385 @@
+{
+	"info": {
+		"_postman_id": "28c4b4f0-b938-40d6-8351-ebd817307e7b",
+		"name": "IntelliQ_API",
+		"description": "Base URL: http://localhost:9103/intelliq_api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20441156"
+	},
+	"item": [
+		{
+			"name": "questionnaire",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9103/intelliq_api/questionnaire/:questionnaireID",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9103",
+					"path": [
+						"intelliq_api",
+						"questionnaire",
+						":questionnaireID"
+					],
+					"variable": [
+						{
+							"key": "questionnaireID",
+							"value": "QQ000"
+						}
+					]
+				},
+				"description": "Gets Questionnaire By QuestionnaireID Identifier"
+			},
+			"response": []
+		},
+		{
+			"name": "question",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9103/intelliq_api/question/:questionnaireID/:questionID",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9103",
+					"path": [
+						"intelliq_api",
+						"question",
+						":questionnaireID",
+						":questionID"
+					],
+					"variable": [
+						{
+							"key": "questionnaireID",
+							"value": "QQ000"
+						},
+						{
+							"key": "questionID",
+							"value": "P01"
+						}
+					]
+				},
+				"description": "Gets question from a specific questionnaire using both questionnaire and question identifiers"
+			},
+			"response": []
+		},
+		{
+			"name": "doanswer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9103/intelliq_api/doanswer/:questionnaireID/:questionID/:session/:optionID",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9103",
+					"path": [
+						"intelliq_api",
+						"doanswer",
+						":questionnaireID",
+						":questionID",
+						":session",
+						":optionID"
+					],
+					"variable": [
+						{
+							"key": "questionnaireID",
+							"value": "QQ000"
+						},
+						{
+							"key": "questionID",
+							"value": "P01"
+						},
+						{
+							"key": "session",
+							"value": "QWER"
+						},
+						{
+							"key": "optionID",
+							"value": "P01A1"
+						}
+					]
+				},
+				"description": "Answers a question from a specific questionnaire using a unique 4-character session string"
+			},
+			"response": []
+		},
+		{
+			"name": "session_answers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9103/intelliq_api/getsessionanswers/:questionnaireID/:session",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9103",
+					"path": [
+						"intelliq_api",
+						"getsessionanswers",
+						":questionnaireID",
+						":session"
+					],
+					"variable": [
+						{
+							"key": "questionnaireID",
+							"value": null
+						},
+						{
+							"key": "session",
+							"value": null
+						}
+					]
+				},
+				"description": "Gets session answers for a questionnaire using session unique identifier and questionnaire identifier"
+			},
+			"response": []
+		},
+		{
+			"name": "question_answers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9103/intelliq_api/getquestionanswers/:questionnaireID/:questionID",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9103",
+					"path": [
+						"intelliq_api",
+						"getquestionanswers",
+						":questionnaireID",
+						":questionID"
+					],
+					"variable": [
+						{
+							"key": "questionnaireID",
+							"value": null
+						},
+						{
+							"key": "questionID",
+							"value": null
+						}
+					]
+				},
+				"description": "Gets all answers for a question from a specific questionnaire"
+			},
+			"response": []
+		},
+		{
+			"name": "healthcheck",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-OBSERVATORY-AUTH",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjc2Mzg3NTg0fQ.T6feMiIT0q8-5W1TvYrR9PFEuQZw56vFqk7ScqTEBp8",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9103/intelliq_api/admin/healthcheck",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9103",
+					"path": [
+						"intelliq_api",
+						"admin",
+						"healthcheck"
+					]
+				},
+				"description": "Ensures that the admin user is connected to the database"
+			},
+			"response": []
+		},
+		{
+			"name": "Upload Questionnaire",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OBSERVATORY-AUTH",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjc2Mzg3NTg0fQ.T6feMiIT0q8-5W1TvYrR9PFEuQZw56vFqk7ScqTEBp8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:9103/intelliq_api/admin/questionnaire_upd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9103",
+					"path": [
+						"intelliq_api",
+						"admin",
+						"questionnaire_upd"
+					]
+				},
+				"description": "Uploads a new questionnaire from a file source"
+			},
+			"response": []
+		},
+		{
+			"name": "Reset Answers for Questionnaire",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OBSERVATORY-AUTH",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjc2Mzg3NTg0fQ.T6feMiIT0q8-5W1TvYrR9PFEuQZw56vFqk7ScqTEBp8",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9103/intelliq_api/admin/resetq/:questionnaireID",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9103",
+					"path": [
+						"intelliq_api",
+						"admin",
+						"resetq",
+						":questionnaireID"
+					],
+					"variable": [
+						{
+							"key": "questionnaireID",
+							"value": null
+						}
+					]
+				},
+				"description": "Erases all answers for a given questionnaire using the unique questionnaireID"
+			},
+			"response": []
+		},
+		{
+			"name": "Reset the Database",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OBSERVATORY-AUTH",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjc2Mzg3NTg0fQ.T6feMiIT0q8-5W1TvYrR9PFEuQZw56vFqk7ScqTEBp8",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9103/intelliq_api/admin/resetall",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9103",
+					"path": [
+						"intelliq_api",
+						"admin",
+						"resetall"
+					]
+				},
+				"description": "Resets Answers and Questionnaires mongo collections"
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "softeng28_adminPassword",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:9103/intelliq_api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9103",
+					"path": [
+						"intelliq_api",
+						"login"
+					]
+				},
+				"description": "Login for Admin user"
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-OBSERVATORY-AUTH",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjc2Mzg3NTg0fQ.T6feMiIT0q8-5W1TvYrR9PFEuQZw56vFqk7ScqTEBp8",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9103/intelliq_api/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9103",
+					"path": [
+						"intelliq_api",
+						"logout"
+					]
+				},
+				"description": "Logout for Admin user"
+			},
+			"response": []
+		}
+	]
+}

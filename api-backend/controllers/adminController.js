@@ -50,8 +50,6 @@ exports.uploadQuestionnaire = (req, res) => {
 
 exports.resetQuestionnaire = async (req, res) => {
   const questionnaireID = req.params.questionnaireID;
-
-  Answers.collection.dropIndexes();
   try {
     const result = await Answers.deleteMany({ questionnaireID: questionnaireID });
     if (result.deletedCount > 0) {
@@ -64,8 +62,6 @@ exports.resetQuestionnaire = async (req, res) => {
   }
 };
 async function resetall(req, res) {
-  Questionnaire.collection.dropIndexes();
-  Answers.collection.dropIndexes();
   try {
     await Questionnaire.deleteMany({});
     await Answers.deleteMany({});
