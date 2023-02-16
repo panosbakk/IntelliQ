@@ -23,17 +23,22 @@ exports.postQuestionAnswer = async (req, res) => {
       { upsert: true, new: true }
     );
 
-    const answerIndex = answer.answers.findIndex((ans) => ans.qID === questionID && ans.ans === optionID);
+    const answerIndex = answer.answers.findIndex(
+      (ans) => ans.qID === questionID && ans.ans === optionID
+    );
     if (answerIndex >= 0) {
       // The answer already exists, no updates needed
-      res.sendStatus(204);
+      res.sendStatus(200);
     } else {
       // Find the index of the answer in the answers array
-      const answerIndex = answer.answers.findIndex((ans) => ans.qID === questionID);
+      const answerIndex = answer.answers.findIndex(
+        (ans) => ans.qID === questionID
+      );
       if (answerIndex >= 0) {
         // Update the existing answer
         answer.answers[answerIndex].ans = optionID;
-      } else if (questionID) { // Add a new answer only if questionID is truthy
+      } else if (questionID) {
+        // Add a new answer only if questionID is truthy
         // Add a new answer to the answers array
         answer.answers.push({ qID: questionID, ans: optionID });
       }
@@ -41,9 +46,6 @@ exports.postQuestionAnswer = async (req, res) => {
       await answer.save();
       res.sendStatus(200);
     }
-
-
-
   } catch (error) {
     badRequest(res, error);
   }
