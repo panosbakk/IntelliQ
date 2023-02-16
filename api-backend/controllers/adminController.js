@@ -69,9 +69,9 @@ async function resetall(req, res) {
   try {
     await Questionnaire.deleteMany({});
     await Answers.deleteMany({});
-    res.json({ message: "Answers collection has been successfully cleared." });
+    res.json({ status: "ok" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.json({ status: "failed", reason: error });
   }
 }
 
