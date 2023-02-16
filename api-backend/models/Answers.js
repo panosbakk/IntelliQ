@@ -9,6 +9,7 @@ const AnswerSchema = new mongoose.Schema({
   session: {
     type: String,
     required: true,
+    unique: true
   },
 
   answers: [
