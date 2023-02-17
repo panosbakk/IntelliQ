@@ -35,7 +35,11 @@ const Login = () => {
       localStorage.setItem("token", data.token);
       window.location.href = "/";
     } catch (error) {
-      setError(error.message);
+      if (error.message.includes("NetworkError")) {
+        setError("Server is offline. Try again in a few minutes.");
+      } else {
+        setError(error.message);
+      }
     }
   };
 
