@@ -19,7 +19,7 @@ exports.healthCheck = (req, res) => {
   });
 }
 
-exports.uploadQuestionnaire = (req, res) => {
+exports.uploadQuestionnaire = async (req, res) => {
   try {
     const questionnaireData = JSON.parse(req.file.buffer.toString());
     const { questionnaireID, questionnaireTitle, keywords, questions } = questionnaireData;
@@ -38,13 +38,18 @@ exports.uploadQuestionnaire = (req, res) => {
         }
       }
     }
+    const existingQuestionnaire = await Questionnaire.findOne({ questionnaireID: questionnaireID });
+    if (existingQuestionnaire) {
+      return res.status(409).send({ message: "A questionnaire with that ID already exists." });
+    }
     const questionnaire = new Questionnaire(questionnaireData);
-    questionnaire.save();
+    await questionnaire.save();
     res.status(200).send({ message: "Questionnaire uploaded successfully." });
   } catch (error) {
     res.status(400).send({ message: "Error uploading questionnaire." });
   }
 };
+
 
 
 
