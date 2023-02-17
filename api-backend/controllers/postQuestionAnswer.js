@@ -27,7 +27,7 @@ exports.postQuestionAnswer = async (req, res) => {
     if (!questionnaire) {
       return badRequest(
         res,
-        "Invalid request. QuestionnaireID, QuestionID, and OptionID do not exist in the database."
+        "Invalid request. QuestionnaireID, QuestionID, or OptionID do not exist in the database."
       );
     }
 
