@@ -12,15 +12,15 @@ program.version('1.0.0');
 program
     .command('login')
     .option('--username <username>', 'username')
-    .option('--password <password>', 'password')
+    .option('--passw <password>', 'password')
     .action(function(options) {
 
-        if (options.username == undefined || options.password == undefined){
+        if (options.username == undefined || options.passw == undefined){
             if (options.username == undefined){
                 console.log("Must define username using '--username' option")
             }
-            if (options.password == undefined){
-            console.log("Must define password using '--password' option")
+            if (options.passw == undefined){
+            console.log("Must define password using '--passw' option")
             }
             return
         }
@@ -37,7 +37,7 @@ program
                         },
                         data: qs.stringify({
                             username: options.username,
-                            password: options.password
+                            password: options.passw
                           })
                     }
             
@@ -53,6 +53,10 @@ program
                         })
 
                         .catch(err => {
+                            if (!err.response) {
+                                console.log("It seems that the server is down.");
+                                return
+                            }
                             console.log("Status code: " + err.response.status)
                             if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
                                 console.log(err.response.data)
@@ -109,7 +113,11 @@ program
                             })  
                         })
                         .catch(err => {
-                            console.log("Status code: " + err.response.status)
+                            if (!err.response) {
+                                console.log("It seems that the server is down.");
+                                return
+                            }
+                            console.log("Status code: " + (err.response.status))
                             if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
                                 console.log(err.response.data)
                             if (err.response.status == 404)
@@ -195,6 +203,10 @@ program
                             console.log(res.data)
                         })
                         .catch(err => {
+                            if (!err.response) {
+                                console.log("It seems that the server is down.");
+                                return
+                            }
                             console.log("Status code: " + err.response.status)
                             if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
                                 console.log(err.response.data)
@@ -225,7 +237,6 @@ program
                 }
                 //Another error has occured
                 else { 
-                    console.log("Error! Something went wrong:" + err1.code + " - " + err1.message)
                     throw err1;
                 }
             }
@@ -260,6 +271,10 @@ program
                                     console.log(res.data)
                                 })
                                 .catch(err => {
+                                    if (!err.response) {
+                                        console.log("It seems that the server is down.");
+                                        return
+                                    }
                                     console.log("Status code: " + err.response.status + " - " + err.response.statusText)
                                 })
                         }
@@ -309,6 +324,10 @@ program
                             console.log(res.data)
                         })
                         .catch(err => {
+                            if (!err.response) {
+                                console.log("It seems that the server is down.");
+                                return
+                            }
                             console.log("Status code: " + err.response.status)
                             if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
                                 console.log(err.response.data)
@@ -342,6 +361,10 @@ program
                 console.log(res.data)
             })
             .catch(err => {
+                if (!err.response) {
+                    console.log("It seems that the server is down.");
+                    return
+                }
                 console.log("Status code: " + err.response.status)
                 if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
                     console.log(err.response.data)
@@ -378,6 +401,10 @@ program
                 console.log(res.data)
             })
             .catch(err => {
+                if (!err.response) {
+                    console.log("It seems that the server is down.");
+                    return
+                }
                 console.log("Status code: " + err.response.status)
                 if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
                     console.log(err.response.data)
@@ -420,9 +447,13 @@ program
         }
         axios(config)
             .then(res => {
-                console.log(res.data)
+                console.log("")
             })
             .catch(err => {
+                if (!err.response) {
+                    console.log("It seems that the server is down.");
+                    return
+                }
                 console.log("Status code: " + err.response.status)
                 if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
                     console.log(err.response.data)
@@ -459,6 +490,10 @@ program
                 console.log(res.data)
             })
             .catch(err => {
+                if (!err.response) {
+                    console.log("It seems that the server is down.");
+                    return
+                }
                 console.log("Status code: " + err.response.status)
                 if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
                     console.log(err.response.data)
@@ -495,6 +530,10 @@ program
                 console.log(res.data)
             })
             .catch(err => {
+                if (!err.response) {
+                    console.log("It seems that the server is down.");
+                    return
+                }
                 console.log("Status code: " + err.response.status)
                 if (err.response.status == 400 || err.response.status == 401 || err.response.status == 402)
                     console.log(err.response.data)

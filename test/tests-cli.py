@@ -9,14 +9,14 @@ class bcolors:
 failed_healthcheck_cli_call = ['node', '../cli/cli.js', 'healthcheck']
 failed_healthcheck_cli_call_expected = "Error: Access denied. You should log in in order to access this page."
 
-login_cli_call = ['node', '../cli/cli.js', 'login', '--username', 'admin', '--password', 'softeng28_adminPassword']
+login_cli_call = ['node', '../cli/cli.js', 'login', '--username', 'admin', '--passw', 'softeng28_adminPassword']
 login_cli_call_expected = "User successfully logged in."
 
 healthcheck_cli_call = ['node', '../cli/cli.js', 'healthcheck']
 healthcheck_cli_call_expected = "{  status: 'OK',  dbconnection: 'mongodb+srv://el19600:c2mot3n5@intelliq.25mg5s4.mongodb.net/?retryWrites=true&w=majority'}"
 
 resetall_cli_call = ['node', '../cli/cli.js', 'resetall']
-resetall_cli_call_expected = "{ message: 'Answers collection has been successfully cleared.' }"
+resetall_cli_call_expected = "{ status: 'OK' }"
 
 questionnaire_upd_cli_call = ['node', '../cli/cli.js', 'questionnaire_upd', '--source', '../data/QQ000.json']
 questionnaire_upd_cli_call_2 = ['node', '../cli/cli.js', 'questionnaire_upd', '--source', '../data/QQ001.json']
