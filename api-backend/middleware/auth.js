@@ -12,4 +12,5 @@ function auth(req, res, next) {
     res.status(401).send("Access denied. Invalid Token.");
   }
 }
+
 exports.auth = auth;

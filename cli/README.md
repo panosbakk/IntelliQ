@@ -1,8 +1,8 @@
-# CLI 
+# CLI
 
 ## Description
 
-This CLI tool is a command-line interface for performing various tasks. To use it, you need to be in the cli folder and run the command `node cli.js` . This will display a list of available options that you can use. 
+This CLI tool is a command-line interface for performing various tasks. To use it, you need to be in the cli folder and run the command `node cli.js` . This will display a list of available options that you can use.
 
 To specify a parameter, use the --param option, followed by the value you want to use. For example, if you want to login with your username and your password, you should write:
 
@@ -19,4 +19,3 @@ b. Replace the `$EVN_CLI` variable with the absolute path to your project direct
 c. Save and close the file.
 
 d. Run the following command to install the CLI tool: `./install_cli.sh`
-

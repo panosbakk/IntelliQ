@@ -1,7 +1,5 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-// const busboyBodyParser = require('busboy-body-parser');
-// const bb = require('express-busboy')
 const cors = require("cors");
 
 // create express app
@@ -15,10 +13,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // parse application/json
 app.use(bodyParser.json());
-
-// parse multipart/form-data
-// app.use(busboyBodyParser())
-// bb.extend(app)
 
 require("./routes/getQuestion.js")(app);
 require("./routes/getQuestionAnswers.js")(app);
