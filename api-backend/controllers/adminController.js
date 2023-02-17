@@ -30,21 +30,19 @@ exports.uploadQuestionnaire = async (req, res) => {
     if (!questionnaireID || !questionnaireTitle || !keywords || !questions) {
       return res.status(400).send({ message: "Invalid questionnaire format." });
     }
-    for (let i = 0; i < questions.length; i++) {
-      const { qID, qtext, required, type, options } = questions[i];
+    const invalidQuestionFormat = !questions.map(({ qID, qtext, required, type, options }) => {
       if (!qID || !qtext || !required || !type || !options) {
-        return res
-          .status(400)
-          .send({ message: "Invalid questionnaire format." });
+        return true;
       }
-      for (let j = 0; j < options.length; j++) {
-        const { optID, opttxt, nextqID } = options[j];
+      return !options.map(({ optID, opttxt, nextqID }) => {
         if (!optID || !opttxt || !nextqID) {
-          return res
-            .status(400)
-            .send({ message: "Invalid questionnaire format." });
+          return true;
         }
-      }
+        return false;
+      }).includes(true);
+    }).includes(true);
+    if (invalidQuestionFormat) {
+      return res.status(400).send({ message: "Invalid questionnaire format." });
     }
     const existingQuestionnaire = await Questionnaire.findOne({
       questionnaireID: questionnaireID,
@@ -61,6 +59,7 @@ exports.uploadQuestionnaire = async (req, res) => {
     res.status(400).send({ message: "Error uploading questionnaire." });
   }
 };
+
 
 exports.resetQuestionnaire = async (req, res) => {
   const questionnaireID = req.params.questionnaireID;
