@@ -1,6 +1,8 @@
 module.exports = (app) => {
-    const { getQuestionByID } = require('../controllers/getQuestion.js');
+  const { getQuestionByID } = require("../controllers/getQuestion.js");
 
-    app.get('/intelliq_api/question/:questionnaireID/:questionID', getQuestionByID);
-}
-
+  app.get(
+    "/intelliq_api/question/:questionnaireID/:questionID",
+    getQuestionByID
+  );
+};
