@@ -29,7 +29,7 @@ const Login = () => {
 
       if (!response.ok) {
         const data = await response.json();
-        throw new Error(data.message || "Incorrect username or password");
+        throw new Error(data.error || "An error occurred");
       }
       const data = await response.json();
       localStorage.setItem("token", data.token);
@@ -42,6 +42,7 @@ const Login = () => {
       }
     }
   };
+
 
   return (
     <Container className="d-flex flex-column align-items-center">
