@@ -43,7 +43,6 @@ const Login = () => {
     }
   };
 
-
   return (
     <Container className="d-flex flex-column align-items-center">
       <h2>Login Page</h2>
