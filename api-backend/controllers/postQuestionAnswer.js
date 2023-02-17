@@ -1,4 +1,5 @@
 const Answers = require("../models/Answers");
+const Questionnaire = require("../models/Questionnaire");
 const badRequest = require("../utils/badRequestResponse");
 const internalServerError = require("../utils/internalServerErrorResponse");
 
@@ -13,6 +14,20 @@ exports.postQuestionAnswer = async (req, res) => {
       return badRequest(
         res,
         "Invalid request. QuestionnaireID, QuestionID, Session and OptionID are all required parameters."
+      );
+    }
+
+    // Check if questionnaireID, questionID and optionID exist in the Questionnaire collection
+    const questionnaire = await Questionnaire.findOne({
+      questionnaireID: questionnaireID,
+      "questions._id": questionID,
+      "questions.options._id": optionID,
+    });
+
+    if (!questionnaire) {
+      return badRequest(
+        res,
+        "Invalid request. QuestionnaireID, QuestionID, and OptionID do not exist in the database."
       );
     }
 
