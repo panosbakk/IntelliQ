@@ -1,227 +1,231 @@
 {
     "questionnaireID": "Q000",
     "questionnaireTitle": "Geography Quiz",
-    "keywords": ["geography", "countries", "knowledge"],
+    "keywords": [
+        "geography",
+        "countries",
+        "knowledge"
+    ],
     "questions": [
-    {
-    "qID": "P00",
-    "qtext": "Ποιο είναι το mail σας;",
-    "required": "FALSE",
-    "type": "profile",
-    "options": [
-    {
-    "optID": "P00TXT",
-    "opttxt": "<open string>",
-    "nextqID": "P01"
-    }   
-    ]
-    },
-    {
-    "qID": "P01",
-    "qtext": "Πόσο καλός πιστεύετε ότι είστε στην Γεωγραφία;",
-    "required": "TRUE",
-    "type": "profile",
-    "options": [
-    {
-    "optID": "P01A1",
-    "opttxt": "Καθόλου καλός",
-    "nextqID": "Q01"
-    },
-    {
-    "optID": "P01A2",
-    "opttxt": "Μέτριος",
-    "nextqID": "Q01"
-    },
-    {
-    "optID": "P01A3",
-    "opttxt": "Αρκετά καλός",
-    "nextqID": "Q01"
-    },
-    {
-    "optID": "P01A4",
-    "opttxt": "Expert",
-    "nextqID": "Q01"
-    }
-    ]
-    },
-    {
-    "qID": "Q01",
-    "qtext": "Ποιά είναι η πρωτεύουσα της Ιρλανδίας;",
-    "required": "TRUE",
-    "type": "question",
-    "options": [
-    {
-    "optID": "Q01A1",
-    "opttxt": "Ελσίνκι",
-    "nextqID": "Q02"
-    },
-    {
-    "optID": "Q01A2",
-    "opttxt": "Δουβλίνο",
-    "nextqID": "Q05"
-    },
-    {
-    "optID": "Q01A3",
-    "opttxt": "Όσλο",
-    "nextqID": "Q02"
-    }
-    ]
-    },
-    {
-    "qID": "Q02",
-    "qtext": "Χμμ, σίγουρα δεν είστε expert. Πάμε κάτι πιο εύκολο να ανέβει το ηθικό. Ποιά είναι η πρωτεύουσα της Ισπανίας;",
-    "required": "TRUE",
-    "type": "question",
-    "options": [
-    {
-    "optID": "Q02A1",
-    "opttxt": "Βαρκελώνη",
-    "nextqID": "Q03"
-    },
-    {
-    "optID": "Q02A2",
-    "opttxt":"Μαδρίτη",
-    "nextqID": "Q05"
-    }
-    ]
-    },
-    {
-    "qID": "Q03",
-    "qtext": "Πάμε σε κάτι ακόμη πιο εύκολο. Αν δεν το ξέρετε, καλό θα ήταν να κρεμάσετε ένα χάρτη στο δωμάτιό σας. Ποιά είναι η πρωτεύουσα της Γαλλίας;",
-    "required": "TRUE",
-    "type": "question",
-    "options": [
-    {
-    "optID": "Q03A1",
-    "opttxt": "Παρίσι",
-    "nextqID": "Q05"
-    },
-    {
-    "optID": "Q03A2",
-    "opttxt": "Λυών",
-    "nextqID": "Q04"
-    },
-    {
-    "optID": "Q03A3",
-    "opttxt": "Μασσαλία",
-    "nextqID": "Q04"
-    }
-    ]
-    },
-    {
-    "qID": "Q04",
-    "qtext": "Τελευταία ερώτηση, για να έχετε απαντήσει τουλάχιστον μία σωστή (η ελπίδα πεθαίνει τελευταία). Μην ανησυχείτε πάντως για την έως τώρα πορεία σας, κανείς δεν είναι τέλειος! Ποιά είναι η πρωτεύουσα της Ελλάδας;",
-    "required": "TRUE",
-    "type": "question",
-    "options": [
-    {
-    "optID": "Q04A1",
-    "opttxt": "Aθήνα",
-    "nextqID": "Q08"
-    },
-    {
-    "optID": "Q04A2",
-    "opttxt": "Θεσσαλονίκη",
-    "nextqID": "Q08"
-    }
-    ]
-    },
-    {
-    "qID": "Q05",
-    "qtext": "Μάλλον ξέρετε κάποια βασικά. Next level question: Ποιά είναι η πρωτεύουσα του Καζακστάν;",
-    "required": "TRUE",
-    "type": "question",
-    "options": [
-    {
-    "optID": "Q05A1",
-    "opttxt": "Αστάνα",
-    "nextqID": "Q06"
-    },
-    {
-    "optID": "Q05A2",
-    "opttxt": "Τασκένδη",
-    "nextqID": "Q06"
-    },
-    {
-    "optID": "Q05A3",
-    "opttxt": "Ντουσάνμπε",
-    "nextqID": "Q06"
-    }
-    ]
-    },
-    {
-    "qID": "Q06",
-    "qtext": " Πού βρίσκεται το Κονγκό;",
-    "required": "TRUE",
-    "type": "question",
-    "options": [
-    {
-    "optID": "Q06A1",
-    "opttxt": "Λατινική Αμερική",
-    "nextqID": "Q07"
-    },
-    {
-    "optID": "Q06A2",
-    "opttxt": "Ασία",
-    "nextqID": "Q07"
-    },
-    {
-    "optID": "Q06A3",
-    "opttxt": "Αφρική",
-    "nextqID": "Q07"
-    }
-    ]
-    },
-    {
-    "qID": "Q07",
-    "qtext": "Τελευταία ερώτηση: Πόσες χώρες υπάρχουν συνολικά στον πλανήτη Γη;",
-    "required": "TRUE",
-    "type": "question",
-    "options": [
-    {
-    "optID": "Q07A1",
-    "opttxt": "165",
-    "nextqID": "Q08"
-    },
-    {
-    "optID": "Q07A2",
-    "opttxt": "187",
-    "nextqID": "Q08"
-    },
-    {
-    "optID": "Q07A3",
-    "opttxt": "194",
-    "nextqID": "Q08"
-    }
-    ]
-    },
-    {
-    "qID": "Q08",
-    "qtext": "Σας άρεσε το ερωτηματολόγιο; Άλλαξε η εικόνα που είχατε για τον εαυτό σας σχετικά με τις γνώσεις σας στη γεωγραφία;",
-    "required": "TRUE",
-    "type": "question",
-    "options": [
-    {
-    "optID": "Q08A1",
-    "opttxt": "Ναι και Ναι",
-    "nextqID": "-"
-    },
-    {
-    "optID": "Q08A2",
-    "opttxt": "Ναι και Όχι",
-    "nextqID": "-"
-    },
-    {
-    "optID": "Q08A2",
-    "opttxt": "Όχι και Ναι",
-    "nextqID": "-"
-    },
-    {
-    "optID": "Q08A2",
-    "opttxt": "Όχι και Όχι",
-    "nextqID": "-"
-    }
-    ]
-    }
+        {
+            "qID": "P00",
+            "qtext": "Ποιο είναι το mail σας;",
+            "required": "FALSE",
+            "type": "profile",
+            "options": [
+                {
+                    "optID": "P00TXT",
+                    "opttxt": "<open string>",
+                    "nextqID": "P01"
+                }
+            ]
+        },
+        {
+            "qID": "P01",
+            "qtext": "Πόσο καλός πιστεύετε ότι είστε στην Γεωγραφία;",
+            "required": "TRUE",
+            "type": "profile",
+            "options": [
+                {
+                    "optID": "P01A1",
+                    "opttxt": "Καθόλου καλός",
+                    "nextqID": "Q01"
+                },
+                {
+                    "optID": "P01A2",
+                    "opttxt": "Μέτριος",
+                    "nextqID": "Q01"
+                },
+                {
+                    "optID": "P01A3",
+                    "opttxt": "Αρκετά καλός",
+                    "nextqID": "Q01"
+                },
+                {
+                    "optID": "P01A4",
+                    "opttxt": "Expert",
+                    "nextqID": "Q01"
+                }
+            ]
+        },
+        {
+            "qID": "Q01",
+            "qtext": "Ποιά είναι η πρωτεύουσα της Ιρλανδίας;",
+            "required": "TRUE",
+            "type": "question",
+            "options": [
+                {
+                    "optID": "Q01A1",
+                    "opttxt": "Ελσίνκι",
+                    "nextqID": "Q02"
+                },
+                {
+                    "optID": "Q01A2",
+                    "opttxt": "Δουβλίνο",
+                    "nextqID": "Q05"
+                },
+                {
+                    "optID": "Q01A3",
+                    "opttxt": "Όσλο",
+                    "nextqID": "Q02"
+                }
+            ]
+        },
+        {
+            "qID": "Q02",
+            "qtext": "Χμμ, σίγουρα δεν είστε expert. Πάμε κάτι πιο εύκολο να ανέβει το ηθικό. Ποιά είναι η πρωτεύουσα της Ισπανίας;",
+            "required": "TRUE",
+            "type": "question",
+            "options": [
+                {
+                    "optID": "Q02A1",
+                    "opttxt": "Βαρκελώνη",
+                    "nextqID": "Q03"
+                },
+                {
+                    "optID": "Q02A2",
+                    "opttxt": "Μαδρίτη",
+                    "nextqID": "Q05"
+                }
+            ]
+        },
+        {
+            "qID": "Q03",
+            "qtext": "Πάμε σε κάτι ακόμη πιο εύκολο. Αν δεν το ξέρετε, καλό θα ήταν να κρεμάσετε ένα χάρτη στο δωμάτιό σας. Ποιά είναι η πρωτεύουσα της Γαλλίας;",
+            "required": "TRUE",
+            "type": "question",
+            "options": [
+                {
+                    "optID": "Q03A1",
+                    "opttxt": "Παρίσι",
+                    "nextqID": "Q05"
+                },
+                {
+                    "optID": "Q03A2",
+                    "opttxt": "Λυών",
+                    "nextqID": "Q04"
+                },
+                {
+                    "optID": "Q03A3",
+                    "opttxt": "Μασσαλία",
+                    "nextqID": "Q04"
+                }
+            ]
+        },
+        {
+            "qID": "Q04",
+            "qtext": "Τελευταία ερώτηση, για να έχετε απαντήσει τουλάχιστον μία σωστή (η ελπίδα πεθαίνει τελευταία). Μην ανησυχείτε πάντως για την έως τώρα πορεία σας, κανείς δεν είναι τέλειος! Ποιά είναι η πρωτεύουσα της Ελλάδας;",
+            "required": "TRUE",
+            "type": "question",
+            "options": [
+                {
+                    "optID": "Q04A1",
+                    "opttxt": "Aθήνα",
+                    "nextqID": "Q08"
+                },
+                {
+                    "optID": "Q04A2",
+                    "opttxt": "Θεσσαλονίκη",
+                    "nextqID": "Q08"
+                }
+            ]
+        },
+        {
+            "qID": "Q05",
+            "qtext": "Μάλλον ξέρετε κάποια βασικά. Next level question: Ποιά είναι η πρωτεύουσα του Καζακστάν;",
+            "required": "TRUE",
+            "type": "question",
+            "options": [
+                {
+                    "optID": "Q05A1",
+                    "opttxt": "Αστάνα",
+                    "nextqID": "Q06"
+                },
+                {
+                    "optID": "Q05A2",
+                    "opttxt": "Τασκένδη",
+                    "nextqID": "Q06"
+                },
+                {
+                    "optID": "Q05A3",
+                    "opttxt": "Ντουσάνμπε",
+                    "nextqID": "Q06"
+                }
+            ]
+        },
+        {
+            "qID": "Q06",
+            "qtext": "Πού βρίσκεται το Κονγκό;",
+            "required": "TRUE",
+            "type": "question",
+            "options": [
+                {
+                    "optID": "Q06A1",
+                    "opttxt": "Λατινική Αμερική",
+                    "nextqID": "Q07"
+                },
+                {
+                    "optID": "Q06A2",
+                    "opttxt": "Ασία",
+                    "nextqID": "Q07"
+                },
+                {
+                    "optID": "Q06A3",
+                    "opttxt": "Αφρική",
+                    "nextqID": "Q07"
+                }
+            ]
+        },
+        {
+            "qID": "Q07",
+            "qtext": "Τελευταία ερώτηση: Πόσες χώρες υπάρχουν συνολικά στον πλανήτη Γη;",
+            "required": "TRUE",
+            "type": "question",
+            "options": [
+                {
+                    "optID": "Q07A1",
+                    "opttxt": "165",
+                    "nextqID": "Q08"
+                },
+                {
+                    "optID": "Q07A2",
+                    "opttxt": "187",
+                    "nextqID": "Q08"
+                },
+                {
+                    "optID": "Q07A3",
+                    "opttxt": "194",
+                    "nextqID": "Q08"
+                }
+            ]
+        },
+        {
+            "qID": "Q08",
+            "qtext": "Σας άρεσε το ερωτηματολόγιο; Άλλαξε η εικόνα που είχατε για τον εαυτό σας σχετικά με τις γνώσεις σας στη γεωγραφία;",
+            "required": "TRUE",
+            "type": "question",
+            "options": [
+                {
+                    "optID": "Q08A1",
+                    "opttxt": "Ναι και Ναι",
+                    "nextqID": "-"
+                },
+                {
+                    "optID": "Q08A2",
+                    "opttxt": "Ναι και Όχι",
+                    "nextqID": "-"
+                },
+                {
+                    "optID": "Q08A2",
+                    "opttxt": "Όχι και Ναι",
+                    "nextqID": "-"
+                },
+                {
+                    "optID": "Q08A2",
+                    "opttxt": "Όχι και Όχι",
+                    "nextqID": "-"
+                }
+            ]
+        }
     ]
 }
