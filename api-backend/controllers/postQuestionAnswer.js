@@ -20,8 +20,8 @@ exports.postQuestionAnswer = async (req, res) => {
     // Check if questionnaireID, questionID and optionID exist in the Questionnaire collection
     const questionnaire = await Questionnaire.findOne({
       questionnaireID: questionnaireID,
-      "questions._id": questionID,
-      "questions.options._id": optionID,
+      "questions.qID": questionID,
+      "questions.options.optID": optionID,
     });
 
     if (!questionnaire) {
