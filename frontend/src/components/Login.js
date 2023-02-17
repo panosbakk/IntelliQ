@@ -35,7 +35,7 @@ const Login = () => {
       localStorage.setItem("token", data.token);
       window.location.href = "/";
     } catch (error) {
-      if (error.message.includes("NetworkError")) {
+      if (error.message.includes("NetworkError" || "Failed to fetch")) {
         setError("Server is offline. Try again in a few minutes.");
       } else {
         setError(error.message);
