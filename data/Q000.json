@@ -117,12 +117,12 @@
     {
     "optID": "Q04A1",
     "opttxt": "Aθήνα",
-    "nextqID": "-"
+    "nextqID": "Q08"
     },
     {
     "optID": "Q04A2",
     "opttxt": "Θεσσαλονίκη",
-    "nextqID": "-"
+    "nextqID": "Q08"
     }
     ]
     },
