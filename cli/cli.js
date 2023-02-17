@@ -2,7 +2,6 @@
 
 const program = require("commander");
 const axios = require("axios").default;
-const spawn = require("child_process").spawn;
 const qs = require("querystring");
 var fs = require("fs");
 var FormData = require("form-data");
