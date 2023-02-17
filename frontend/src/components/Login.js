@@ -17,7 +17,7 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError(null);
-
+  
     try {
       const response = await fetch("http://localhost:9103/intelliq_api/login", {
         method: "POST",
@@ -26,22 +26,25 @@ const Login = () => {
         },
         body: `username=${username}&password=${password}`,
       });
-
+  
       if (!response.ok) {
         const data = await response.json();
         throw new Error(data.error || "An error occurred");
       }
+  
       const data = await response.json();
       localStorage.setItem("token", data.token);
       window.location.href = "/";
     } catch (error) {
-      if (error.message.includes("NetworkError" || "Failed to fetch")) {
+      if (error.message.includes("NetworkError") || error.message.includes("Failed to fetch")) {
         setError("Server is offline. Try again in a few minutes.");
       } else {
         setError(error.message);
       }
     }
   };
+  
+  
 
   return (
     <Container className="d-flex flex-column align-items-center">
