@@ -3,17 +3,27 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Dependencies(Other than react)
+
 1. Install [NodeJs](https://nodejs.org/en/)
 2. In the project folder, install:
 
    a. [React Router](https://reactrouter.com/en/main)
-  ```npm i react-router-dom@latest```
-  
+   `npm i react-router-dom@latest`
+
    b. [SurveyJS](https://surveyjs.io/)
-  ```npm i survey-react@latest```
-  
-   c. [Bootstrap css](https://getbootstrap.com/)
-  ```npm i bootstrap@latest```
+   `npm i react-survey@latest`
+
+   c. [React](https://reactjs.org/)
+   `npm i react@latest`
+
+   d. [React Dom](https://reactjs.org/docs/react-dom.html)
+   `npm i react-dom@latest`
+
+   e. [React bootstrap](https://reactstrap.github.io/)
+   `npm i reactstrap@latest`
+
+   f. [ChartJS](https://www.chartjs.org/)
+   `npm i chart.js@latest`
 
 ## Available Scripts
 
