@@ -37,11 +37,12 @@ exports.postQuestionAnswer = async (req, res) => {
       { upsert: true, new: true, returnOriginal: false }
     );
 
-    const updatedAnswers = answer.answers.map(ans => {
+    // Create a deep copy of the answer document
+    const updatedAnswers = JSON.parse(JSON.stringify(answer.answers));
+    updatedAnswers.forEach((ans) => {
       if (ans.qID === questionID) {
         ans.ans = optionID;
       }
-      return ans;
     });
 
     const answerIndex = updatedAnswers.findIndex(
@@ -55,10 +56,15 @@ exports.postQuestionAnswer = async (req, res) => {
         // Add a new answer only if questionID is truthy
         updatedAnswers.push({ qID: questionID, ans: optionID });
       }
+
+      // Create a deep copy of the answer document
+      const updatedAnswer = JSON.parse(JSON.stringify(answer));
+      updatedAnswer.answers = updatedAnswers;
+
       // Update the answer document with the updated answers
       await Answers.findOneAndUpdate(
         { questionnaireID: questionnaireID, session: session },
-        { questionnaireID: questionnaireID, session: session, answers: updatedAnswers },
+        updatedAnswer,
         { returnOriginal: false }
       );
       res.sendStatus(200);
