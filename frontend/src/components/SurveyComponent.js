@@ -24,31 +24,27 @@ class SurveyComponent extends Component {
     this.onCompleteComponent = this.onCompleteComponent.bind(this);
   }
 
-  onCompleteComponent = (result) => {
-    this.setState({ isCompleted: true });
+  onCompleteComponent = async (result) => {
     const data = result.data;
+    console.log(data);
     const questionnaireID = this.state.surveyName;
     const session = generateRandomString();
     console.log(session);
-    Object.keys(data).forEach(async (key) => {
-      let questionID = key;
-      let optionID = data[key];
-      console.log(questionID, optionID);
-      try {
-        await fetch(
-          `http://localhost:9103/intelliq_api/doanswer/${questionnaireID}/${questionID}/${session}/${optionID}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ question: key, answer: data[key] }),
-          }
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    });
+    try {
+      await fetch(
+        `http://localhost:9103/intelliq_api/submitanswers/${questionnaireID}/${session}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ answers: data }),
+        }
+      );
+      this.setState({ isCompleted: true });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   jsonModifier(json) {
