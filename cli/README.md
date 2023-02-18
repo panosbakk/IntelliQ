@@ -18,27 +18,46 @@ To specify a parameter, use the --param option, followed by the value you want t
 
    c. Save and close the file.
 
-   d. Run the following command to install the CLI tool: `./install_cli.sh`
+   d. Run the following command to install the CLI tool:
+
+   ```shell
+   $ ./install_cli.sh
+   ```
 
 2. If you are using Windows, and you want to be able to run the CLI tool even when you are not in the cli/ directory, using the command `se2228`, instead of `node cli.js`, follow these additional steps:
 
    a. Open the powershell as an administrator.
 
    b. Create a file named se2228.ps1 and add the following code:
-   `node c:\your-path\to\SoftEng22-28\cli\cli.js @args`
+
+   ```shell
+   $ node c:\your-path\to\SoftEng22-28\cli\cli.js @args
+   ```
 
    c. Save the file and close the text editor.
 
    d. In powershell, run the following command:
-   `New-Item -Path $Profile.CurrentUserAllHosts -Type File -Force`
+
+   ```shell
+   $ New-Item -Path $Profile.CurrentUserAllHosts -Type File -Force
+   ```
 
    e. Open the file by running the following command:
-   `notepad $Profile.CurrentUserAllHosts`
+
+   ```shell
+   $ notepad $Profile.CurrentUserAllHosts
+   ```
 
    f. Add the following line to the profile file:
-   `Set-Alias se2228 c:\your-path\to\SoftEng22-28\cli\se2228.ps1`
+
+   ```shell
+   $ Set-Alias se2228 c:\your-path\to\SoftEng22-28\cli\se2228.ps1
+   ```
 
    g. Save the profile file and exit the text editor.
 
    In case you can't run scripts on your computer run the following command in the powershell:
-   `Set-ExecutionPolicy Unrestricted -Scope CurrentUser`
+
+   ```shell
+   $ Set-ExecutionPolicy Unrestricted -Scope CurrentUser
+   ```

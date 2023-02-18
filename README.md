@@ -95,3 +95,19 @@ API is running on port 9103.
 
 The page will reload every time you make changes.\
 You may also see any lint errors in the console.
+
+## Json Web Token
+
+In order to log in as administrator you need to set the following environment variable:
+
+1.  In Linux or macOS:
+
+```shell
+$ export kypellokaiprwta8lhmasthnfiladelfeia=mySecureKey
+```
+
+2. In Windows powershell run the following command:
+
+```shell
+$ setx kypellokaiprwta8lhmasthnfiladelfeia mySecureKey
+```
