@@ -38,7 +38,7 @@ exports.postQuestionAnswer = async (req, res) => {
     );
 
     // Create a deep copy of the answer document
-    const updatedAnswers = JSON.parse(JSON.stringify(answer.answers));
+    const updatedAnswers = JSON.parse(JSON.stringify(answer.toObject().answers));
     updatedAnswers.forEach((ans) => {
       if (ans.qID === questionID) {
         ans.ans = optionID;
@@ -58,7 +58,7 @@ exports.postQuestionAnswer = async (req, res) => {
       }
 
       // Create a deep copy of the answer document
-      const updatedAnswer = JSON.parse(JSON.stringify(answer));
+      const updatedAnswer = JSON.parse(JSON.stringify(answer.toObject()));
       updatedAnswer.answers = updatedAnswers;
 
       // Update the answer document with the updated answers
