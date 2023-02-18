@@ -1,7 +1,7 @@
 #Script for oral examination
 
 #login
-se228 login --username admin --passw softeng28_adminPassword
+se2228 login --username admin --passw softeng28_adminPassword
 
 #check helthcheck
 se2228 healthcheck
@@ -24,7 +24,7 @@ se2228 getquestionanswers --questionnaire_ID Q000 --question_ID Q01
 se2228 resetall	
 
 #questionnaire_upd
-se2228 questionnaire_upd --source ../data/Q000.json
+se2228 questionnaire_upd --source data/Q000.json
 
 #show questionnaire in DB
 se2228 questionnaire --questionnaire_ID Q000

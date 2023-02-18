@@ -25,11 +25,16 @@ const userSchema = new mongoose.Schema(
 );
 
 userSchema.methods.generateAuthToken = function () {
-  const token = jwt.sign(
-    { username: this.username, isAdmin: this.isAdmin },
-    config.get("jwtPrivateKey")
-  );
-  return token;
+  try {
+    const token = jwt.sign(
+      { username: this.username, isAdmin: this.isAdmin },
+      config.get("jwtPrivateKey")
+    );
+    return token;
+  } catch (ex) {
+    console.log("Failed to generate auth token: ", ex);
+    return null;
+  }
 };
 
 const User = mongoose.model("User", userSchema, "User");
