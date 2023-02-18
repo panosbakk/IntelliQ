@@ -2,13 +2,11 @@
 
 ### Group Name: Softeng2022-28
 
-
-| Surname             | Name         |    NTUA_ID      |
-|---------------------|--------------|-----------------|
-| Batsari             | Vasiliki     |    03118046     |
-| Tournaris           | Lefteris     |    03118845     |
-| Bakaloudis          | Panagiotis   |    03119600     |
-
+| Surname    | Name       | NTUA_ID  |
+| ---------- | ---------- | -------- |
+| Batsari    | Vasiliki   | 03118046 |
+| Tournaris  | Lefteris   | 03118845 |
+| Bakaloudis | Panagiotis | 03119600 |
 
 ### This project aims at the creation of 'smart' questionnaires, which are used for online surveys.
 
@@ -65,6 +63,20 @@ The term 'smart' highlights that the questionnaire is dynamic. The questions may
 
    i. [multer](https://www.npmjs.com/package/multer)
    `npm i multer@latest`
+
+4. CLI:
+
+   a. [Commander](https://www.npmjs.com/package//commander)
+   `npm i commander@latest`
+
+   b. [Axios](https://axios-http.com/docs/intro)
+   `npm i axios@latest`
+
+   c. [Query Selector](https://www.npmjs.com/package/query-selector)
+   `npm i query-selector@latest`
+
+   d. [Form Data](https://www.npmjs.com/package/form-data)
+   `npm i form-data@latest`
 
 ## Available Scripts
 
