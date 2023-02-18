@@ -106,7 +106,7 @@ In order to log in as administrator you need to set the following environment va
 $ export kypellokaiprwta8lhmasthnfiladelfeia=mySecureKey
 ```
 
-2. In Windows powershell run the following command:
+2. In Windows powershell run the following command and then restart your IDE:
 
 ```shell
 $ setx kypellokaiprwta8lhmasthnfiladelfeia mySecureKey
