@@ -17,10 +17,11 @@ exports.postQuestionAnswer = async (req, res) => {
       );
     }
 
-    // Check if questionnaireID, questionID and optionID exist in the Questionnaire collection
+    // Check if questionnaireID, questionID, optionID and session exist in the Questionnaire collection
     const questionnaire = await Questionnaire.findOne({
       questionnaireID: questionnaireID,
       "questions.qID": questionID,
+      "questions.options.optionID": optionID
     });
 
     if (!questionnaire) {
@@ -61,7 +62,6 @@ exports.postQuestionAnswer = async (req, res) => {
       res.sendStatus(200);
     }
   } catch (error) {
-    return badRequest(res, error);
+    return internalServerError(res, error);
   }
 };
-
